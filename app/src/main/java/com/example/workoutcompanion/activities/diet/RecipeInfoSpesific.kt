@@ -4,11 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.workoutcompanion.BottomNavListener
 import com.example.workoutcompanion.R
 import com.example.workoutcompanion.adapters.AdapterForDiet1
 import com.example.workoutcompanion.interfaces.DietComunicator
 import com.example.workoutcompanion.model.APIcalls
 import com.google.gson.GsonBuilder
+import kotlinx.android.synthetic.main.nutrition_main_page.*
 import kotlinx.android.synthetic.main.recipe_specific.*
 import kotlinx.android.synthetic.main.testingresult1.*
 import okhttp3.*
@@ -25,7 +27,6 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recipe_specific)
 
-
         val Specific_Meal__ID = getIntent().getStringExtra("specific_info_from_ResultDiet1")?.toInt()
         Log.d("IDDd", Specific_Meal__ID.toString())
 
@@ -33,6 +34,9 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
         url_image = getIntent().getStringExtra("img")
 
         text1.text = url_image
+
+        bottom_nav.setOnNavigationItemSelectedListener(BottomNavListener
+            (this, RecipeInfoSpesific::class.java ))
 
         fetchJsonFromApiSpec()
 

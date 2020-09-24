@@ -6,5 +6,7 @@
     <string name="text_label_diets">Diets</string>
     <string name="diet_header">Select your suitable diet</string>
     <string name="number_diet">10 diets available:</string>
+    <string name="activity_title_chat">Messaging</string>
+    <string name="activity_title_routines">Routines</string>
 
 </resources>
