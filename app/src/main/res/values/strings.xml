@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">WorkoutCompanion</string>
+    <string name="text_label_home">Home</string>
+    <string name="text_label_routines">Routines</string>
+    <string name="text_label_chat">Chat</string>
+    <string name="text_label_diets">Diets</string>
+
 </resources>
