@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.diet.ResultOfDiet1"/>
+        <activity android:name=".activities.diet.Nutrition"/>
+        <activity android:name=".activities.diet.RecipeInfoSpesific"/>
+        <activity android:name=".activities.home.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

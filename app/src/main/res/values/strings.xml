@@ -4,5 +4,7 @@
     <string name="text_label_routines">Routines</string>
     <string name="text_label_chat">Chat</string>
     <string name="text_label_diets">Diets</string>
+    <string name="diet_header">Select your suitable diet</string>
+    <string name="number_diet">10 diets available:</string>
 
 </resources>
