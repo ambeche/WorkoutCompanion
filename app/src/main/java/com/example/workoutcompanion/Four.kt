@@ -13,8 +13,11 @@ class Four : AppCompatActivity() {
         setContentView(R.layout.activity_four)
         title = "Four"
 
-        bottom_navigation.setOnNavigationItemSelectedListener(
-            BottomNavListener(this, Four::class.java ))
+        bottom_navigation.apply {
+            selectedItemId = R.id.routines
+            setOnNavigationItemSelectedListener(
+                BottomNavListener(this@Four, Four::class.java ))
+        }
 
     }
 }

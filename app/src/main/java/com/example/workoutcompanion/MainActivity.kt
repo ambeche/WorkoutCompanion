@@ -9,7 +9,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         title = "home"
-        bottom_navigation.setOnNavigationItemSelectedListener(
-            BottomNavListener(this, MainActivity::class.java ))
+        bottom_navigation.apply {
+            selectedItemId = R.id.home
+            setOnNavigationItemSelectedListener(
+                BottomNavListener(this@MainActivity, MainActivity::class.java ))
+        }
     }
 }

@@ -12,7 +12,10 @@ class Three : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_three)
         title = "three"
-        bottom_navigation.setOnNavigationItemSelectedListener(
-            BottomNavListener(this, Three::class.java ))
+        bottom_navigation.apply {
+            selectedItemId = R.id.chat
+            setOnNavigationItemSelectedListener(
+                BottomNavListener(this@Three, Three::class.java ))
+        }
     }
 }

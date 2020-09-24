@@ -12,8 +12,10 @@ class Two : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_two)
         title = "two"
-        bottom_navigation.setOnNavigationItemSelectedListener(
-            BottomNavListener(this, Two::class.java ))
-
+        bottom_navigation.apply {
+            selectedItemId = R.id.diets
+            setOnNavigationItemSelectedListener(
+                BottomNavListener(this@Two, Two::class.java ))
+        }
     }
 }
