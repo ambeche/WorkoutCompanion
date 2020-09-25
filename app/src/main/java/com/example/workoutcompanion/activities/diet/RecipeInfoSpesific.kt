@@ -7,12 +7,14 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.workoutcompanion.BottomNavListener
 import com.example.workoutcompanion.R
 import com.example.workoutcompanion.adapters.AdapterForDiet1
 import com.example.workoutcompanion.interfaces.DietComunicator
 import com.example.workoutcompanion.model.APIcalls
 import com.google.gson.GsonBuilder
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.nutrition_main_page.*
 import kotlinx.android.synthetic.main.recipe_specific.*
 import kotlinx.android.synthetic.main.testingresult1.*
 import kotlinx.coroutines.Dispatchers
@@ -65,6 +67,7 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
         }
 
 
+
         val Specific_Meal__ID = getIntent().getStringExtra("specific_info_from_ResultDiet1")?.toInt()
         Log.d("IDDd", Specific_Meal__ID.toString())
 
@@ -82,7 +85,12 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
 
         }
 
-        //fetchJsonFromApiSpec()
+
+        bottom_nav.setOnNavigationItemSelectedListener(BottomNavListener
+            (this, RecipeInfoSpesific::class.java ))
+
+        fetchJsonFromApiSpec()
+
 
     }
 
