@@ -15,7 +15,7 @@ object APIcalls {
        return Similar
 
     }
-    fun Summarize_Recipes(id : Int) : String {
+    fun Summarize_Recipes(id : Int?) : String {
         var Summarize = "https://api.spoonacular.com/recipes/${id}/summary?apiKey=${MyToken.apiKey}"
         return Summarize
     }

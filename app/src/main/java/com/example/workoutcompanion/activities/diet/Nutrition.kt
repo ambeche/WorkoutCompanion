@@ -23,6 +23,15 @@ class Nutrition : AppCompatActivity(), View.OnClickListener {
        // getSupportActionBar()?.hide()
 
         btn_Gluteineton.setOnClickListener(this)
+        btn_Keto.setOnClickListener(this)
+        btn_Vegetarian.setOnClickListener(this)
+        btn_Lacto_vege.setOnClickListener(this)
+        btn_Ovo_vrge.setOnClickListener(this)
+        btn_paleo.setOnClickListener(this)
+        btn_Primal.setOnClickListener(this)
+        btn_whole30.setOnClickListener(this)
+        btn_pescatarian.setOnClickListener(this)
+
 
         bottom_navigation.apply {
             selectedItemId = R.id.diets
@@ -89,6 +98,13 @@ class Nutrition : AppCompatActivity(), View.OnClickListener {
 
             btn_whole30  ->      {URL_To_Call = APIcalls.Diet_endPoint + "&diet=Whole30&number=60"
                                   val intent = Intent(this, ResultOfDiet1::class.java).apply {
+                                        putExtra("DietFilter", URL_To_Call)
+                                    }
+                                    startActivity(intent)
+                                }
+
+            btn_pescatarian ->    {URL_To_Call = APIcalls.Diet_endPoint + "&diet=pescartian&number=60"
+                                    val intent = Intent(this, ResultOfDiet1::class.java).apply {
                                         putExtra("DietFilter", URL_To_Call)
                                     }
                                     startActivity(intent)
