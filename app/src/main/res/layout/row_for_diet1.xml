@@ -62,7 +62,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="12dp"
                 android:padding="10dp"
-                android:text="Title"
+                android:text="@string/title"
                 android:textColor="@color/black"
                 android:textSize="28sp"
                 android:textStyle="bold" />
@@ -76,7 +76,7 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="46dp"
-                android:text="Description"
+                android:text="@string/description"
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 android:textStyle="normal" />
@@ -96,7 +96,8 @@
                     android:id="@+id/calory_ImageView"
                     android:layout_width="43dp"
                     android:layout_height="match_parent"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    android:contentDescription="@string/amount_of_calories" />
 
                 <TextView
                     android:id="@+id/calory_textView"

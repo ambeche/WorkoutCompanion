@@ -20,7 +20,7 @@ class Nutrition : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.nutrition_main_page)
-       // getSupportActionBar()?.hide()
+
 
         btn_Gluteineton.setOnClickListener(this)
         btn_Keto.setOnClickListener(this)

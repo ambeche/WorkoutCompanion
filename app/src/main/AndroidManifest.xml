@@ -23,6 +23,7 @@
         <activity android:name=".activities.diet.ResultOfDiet1" />
         <activity android:name=".activities.diet.Nutrition" />
         <activity android:name=".activities.diet.RecipeInfoSpesific" />
+
         <activity android:name=".activities.home.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

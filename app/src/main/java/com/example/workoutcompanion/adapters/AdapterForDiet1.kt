@@ -23,7 +23,7 @@ import java.net.URL
 
 class AdapterForDiet1(val context:Context,val resultdiet1: ResultfromDietclass,val clickListener: (ContentofResulDietclass) -> Unit): RecyclerView.Adapter<CustomViewHolderdiet1>() {
 
-    var imgUrl : URL? = null
+    //var imgUrl : URL? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolderdiet1 {
@@ -47,17 +47,6 @@ class AdapterForDiet1(val context:Context,val resultdiet1: ResultfromDietclass,v
         holder?.view?.title.text = resulti.title
         holder?.view?.setOnClickListener { clickListener(resulti) }
         holder?.view?.calory_textView.text = resulti.id.toString()
-
-       /* GlobalScope.launch(Dispatchers.Main) {
-            imgUrl = URL(resulti.image)
-            val image : Bitmap = withContext(Dispatchers.IO){
-                BitmapFactory.decodeStream(imgUrl?.openStream())
-            }
-            image?.run {
-                holder?.view?.tourImage.setImageBitmap(image)
-            }
-
-        }*/
 
     }
 

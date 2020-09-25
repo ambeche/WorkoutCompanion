@@ -29,7 +29,6 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
     var url :String? = null
     var url_image : String? = null
     var amo : String? = null
-    val fragment1 = FirstFragment()
     var url_For_Summary:String? = null
 
     var isfront = true
@@ -76,7 +75,7 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
         url_image = getIntent().getStringExtra("img")
 
         Picasso.get().load(url_image).into(card_front)
-//        val rlr = BitmapFactory.decodeStream(url_image?.openStream()
+
         card_back.text = url_image
 
         GlobalScope.launch(Dispatchers.Main) {
@@ -115,8 +114,6 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
                     val api_Summary   = gson.fromJson(body,ContentofSummary::class.java)
 
                     Log.d("response_fetch","${api_Summary}")
-//                    card_back.text = api_diet_3.bad[2].amount
-                   // amo = api_diet_3.bad[2].amount
                     card_back.text = api_Summary.summary
 
 
@@ -149,7 +146,6 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
                     val api_diet_3   = gson.fromJson(body,ContentofSpesific::class.java)
 
                     Log.d("response_fetch","${api_diet_3}")
-//                    card_back.text = api_diet_3.bad[2].amount
                     amo = api_diet_3.bad[2].amount
 
                     runOnUiThread {
@@ -174,20 +170,18 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
         val bundle = Bundle()
         bundle.putString("message",Sth)
 
-       //val fragment2 = SecondFragment()
-        val fragment1 = FirstFragment()
-        fragment1.arguments = bundle
-       // this.supportFragmentManager.beginTransaction().replace(R.id.flfragment, fragment1).addToBackStack(null).commit()
+
+        //al fragment1 = FirstFragment()
+       // fragment1.arguments = bundle
+
 
     }
 
-    fun Goo():String?{
-        return amo
-    }
+
 
 }
 
-//class ResultFromSpesificApi(val nutrition:List<ContentofSpesific>)
+
 
 class ContentofSpesific(val calories:String,val  bad:List<DeepInfoBad>, val good:List<DeepInfoGood>)
 
@@ -195,23 +189,5 @@ class DeepInfoBad(val title : String,val amount:String, val percentOfDailyNee: F
 
 class DeepInfoGood(val title : String,val amount:String, val percentOfDailyNee: Float)
 
-class Specs(val title:String,val amount:Double,val unit:String, val percentOfDailyNeeds: String )
-
-class ResultFromSpesificApi {
-
-    data class REsult(
-        val nutrition : data
-    )
-
-    data class data (
-        val nutrients : data2
-    )
-    data class data2(
-        val title: String, val amount:Double,val unit : String, val percentOfDailyNeeds: Double
-
-
-    )
-
-}
 
 class ContentofSummary(val summary:String)

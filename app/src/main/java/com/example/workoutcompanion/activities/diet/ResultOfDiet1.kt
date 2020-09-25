@@ -21,7 +21,7 @@ import java.io.IOException
 class ResultOfDiet1 : AppCompatActivity() {
 
     var url:String? = null
-    //var response_diet1 : ResultfromDietclass? = null
+
     @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,16 +42,15 @@ class ResultOfDiet1 : AppCompatActivity() {
 
         recycler_test.layoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL,false)
 
-                //val fragment1 = FirstFragmentFromDiet()
+
         val My_Url = getIntent().getStringExtra("DietFilter")
         url = My_Url
-       // supportFragmentManager.beginTransaction().replace(R.id.flfragment,fragment1).commit()
-
 
         println(My_Url)
 
-
         fetchJsonfromApiDiet()
+
+
     }
 
     private fun fetchJsonfromApiDiet() {
@@ -68,7 +67,7 @@ class ResultOfDiet1 : AppCompatActivity() {
 
                 override fun onResponse(call: Call, response: Response) {
                     val body = response?.body?.string()
-                    println("rrrrrrrrrrr"+body)
+                    println("this is the bodyyy"+body)
 
                     val gson = GsonBuilder().create()
 
@@ -84,7 +83,7 @@ class ResultOfDiet1 : AppCompatActivity() {
                                 putExtra("img","${it.image}")
                             }
                             startActivity(intent)
-                            //Toast.makeText(this@ResultOfDiet1,"Clicked On ${it.id}",Toast.LENGTH_SHORT).show()
+
                         }
                     }
                 }
@@ -93,26 +92,6 @@ class ResultOfDiet1 : AppCompatActivity() {
         }
     }
 
-
-
-
-
-    /*override fun PassData(Sth: Int) {
-        val bundle = Bundle()
-        bundle.putInt("id_from_fragment1",Sth)
-
-        val fragment2 = SecondFragmentfromDiet()
-        fragment2.arguments = bundle
-        this.supportFragmentManager.beginTransaction().replace(R.id.flfragment, fragment2).addToBackStack(null).commit()
-
-    }*/
-
-   /* fun getMyData(): ResultfromDietclass?{
-        Log.d("responsegetmy","${response_diet1}")
-
-        return response_diet1
-
-    }*/
 }
 
 class ResultfromDietclass(val results : List<ContentofResulDietclass>)
