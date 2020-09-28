@@ -19,10 +19,11 @@
             android:exported="true"></service>
 
         <activity android:name=".activities.routines.RoutinesActivity" />
-        <activity android:name=".activities.chat.ChatActivity" />
+
         <activity android:name=".activities.diet.ResultOfDiet1" />
         <activity android:name=".activities.diet.Nutrition" />
         <activity android:name=".activities.diet.RecipeInfoSpesific" />
+
 
         <activity android:name=".activities.home.MainActivity">
             <intent-filter>
@@ -31,6 +32,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activities.chat.RegisterActivity"/>
+        <activity android:name=".activities.chat.LoginActivity"/>
+
+        <activity android:name=".activities.chat.NewMessageActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.chat.LatestMessageActivity" />
+        </activity>
+
+        <activity android:name=".activities.chat.LatestMessageActivity"/>
+
+        <activity android:name=".activities.chat.ChatLogActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.chat.NewMessageActivity" />
+        </activity>
+
+        <activity android:name=".activities.chat.ChatActivity" />
+
     </application>
 
 </manifest>

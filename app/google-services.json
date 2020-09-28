@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "774652482143",
+    "firebase_url": "https://comapnionworkoutapp.firebaseio.com",
+    "project_id": "comapnionworkoutapp",
+    "storage_bucket": "comapnionworkoutapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774652482143:android:5686d4981ef0b2ea6f81ea",
+        "android_client_info": {
+          "package_name": "com.example.workoutcompanion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774652482143-7uct6c8e4os98ofgcnj17hl05b7ec6uv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbLBliHcyH-dEIEc64OWuTra5UfM-kzyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774652482143-7uct6c8e4os98ofgcnj17hl05b7ec6uv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
