@@ -23,5 +23,18 @@
     <string name="meal_picture">Meal Picture</string>
     <string name="title">Title</string>
     <string name="amount_of_calories">amount of calories</string>
+    <string name="first_name">first name</string>
+    <string name="last_name">last name</string>
+    <string name="height_m">height (m)</string>
+    <string name="weight_kg">weight (kg)</string>
+    <string name="gender">gender</string>
+    <string name="age">age</string>
+    <string name="phone_number">phone number</string>
+    <string name="password">password</string>
+    <string name="email">Email</string>
+    <string name="register">Register</string>
+    <string name="log_in">Log-in</string>
+    <string name="load_avatar">Load Avatar</string>
+    <string name="username">username</string>
 
 </resources>

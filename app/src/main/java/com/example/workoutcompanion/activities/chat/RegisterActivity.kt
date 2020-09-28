@@ -13,10 +13,14 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.workoutcompanion.R
 import com.example.workoutcompanion.activities.home.MainActivity
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
@@ -25,6 +29,7 @@ import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.fragment_register_user.view.*
 import java.net.URI
 import java.util.*
 
@@ -32,12 +37,13 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
-
+        // initialize dropdown menu for gender
+        val gender = resources.getStringArray(R.array.gender)
+        val dropDownMenuAdapter = ArrayAdapter(this, R.layout.list_item, gender)
+        (edit_Gender.editText as? AutoCompleteTextView)?.setAdapter(dropDownMenuAdapter)
 
         btn1.setOnClickListener {
             performRegister()
-
         }
         button_Img.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
@@ -46,11 +52,8 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         button2.setOnClickListener {
-
             val intent = Intent(this, LoginActivity::class.java)
-
             startActivity(intent)
-
         }
     }
 
@@ -92,9 +95,9 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun performRegister() {
-        val name =edit_Name.text
-        val email = edit_Email.text.toString()
-        val pass = edit_Password.text.toString()
+        val name = getInput(edit_Name)
+        val email = getInput(edit_Email)
+        val pass = getInput(edit_PassWord)
 
         if(email.isEmpty() || pass.isEmpty()) {
             Toast.makeText(this,"Please filll in the fields",Toast.LENGTH_SHORT).show()
@@ -127,20 +130,23 @@ class RegisterActivity : AppCompatActivity() {
                 //it.toString()
                 Log.d("register","File location :${it.toString()}")
                 saveUserrodatabse(it.toString())
-
             }
 
         }.addOnFailureListener {
             Log.d("Register","Failed to select photo")
         }
-
-
     }
 
     private fun saveUserrodatabse(ProfileImgUrl:String) {
         val uid = FirebaseAuth.getInstance().uid
         val ref =  FirebaseDatabase.getInstance().getReference("/users/${uid}")
-        val user = uid?.let { User(it,edit_Name.text.toString(),ProfileImgUrl,edit_Email.text.toString(),edit_Age.text.toString(),edit_Gender.text.toString(),edit_Weight.text.toString(),edit_Height.text.toString(),edit_Phone.text.toString() ) }
+        val user = uid?.let { User(it, getInput(edit_Name), ProfileImgUrl, getInput(edit_Email),
+            getInput(edit_Age), getInput(edit_Gender), getInput(edit_Weight), getInput(edit_Height),
+            getInput(edit_Phone) ) }
+
+        clearTxt(edit_Age, edit_Email, edit_Gender, edit_Height, edit_Name, edit_Phone,
+            edit_Weight)
+
         ref.setValue(user).addOnSuccessListener {
             Log.d("Register","Finally the user to firebase")
             val intent = Intent(this,MainActivity::class.java)
@@ -151,8 +157,19 @@ class RegisterActivity : AppCompatActivity() {
             Log.d("Register","Failed to save to database : ${it.message}")
         }
     }
+
+    private fun getInput(v: TextInputLayout) = v.editText?.text.toString()
+
+    private fun clearTxt(vararg v: TextInputLayout) {
+        val ev = listOf(*v)
+        ev.forEach { it.editText?.text?.clear() }
+    }
 }
 @Parcelize
-class User(val uid: String, val username:String, val profileImag:String,val email:String,val Age:String,val Gender:String,val weight:String,val height:String,val phone:String): Parcelable{
-    constructor() : this("", "", "","","","","","", "")
+class User(val uid: String, val username:String, val profileImag:String,val email:String,
+           val Age:String,val Gender:String,val weight:String,val height:String,val phone:String):
+    Parcelable{
+    constructor() : this(
+        "", "", "","","","",
+        "","", "")
 }
