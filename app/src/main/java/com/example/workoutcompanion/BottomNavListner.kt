@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.MenuItem
 import com.example.workoutcompanion.activities.chat.ChatActivity
+import com.example.workoutcompanion.activities.chat.LatestMessageActivity
 import com.example.workoutcompanion.activities.diet.Nutrition
 import com.example.workoutcompanion.activities.home.MainActivity
 import com.example.workoutcompanion.activities.routines.RoutinesActivity
@@ -16,7 +17,7 @@ class BottomNavListener (private val context:Context, private val activity: Clas
             R.id.home -> startActivity(MainActivity::class.java)
             R.id.diets -> startActivity(Nutrition::class.java)
             R.id.routines -> startActivity(RoutinesActivity::class.java)
-            R.id.chat -> startActivity(ChatActivity::class.java)
+            R.id.chat -> startActivity(LatestMessageActivity::class.java)
         }
         return false
     }

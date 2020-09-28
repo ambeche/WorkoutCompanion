@@ -40,5 +40,5 @@ object APIcalls {
 }
 
 object MyToken {
-    val apiKey = "31a75477de17460d936740d4fe2e4b03"
+    val apiKey = "6632e51f9fd646e7b179ea2da266a4af"
 }

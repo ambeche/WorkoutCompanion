@@ -63,6 +63,7 @@ class ResultOfDiet1 : AppCompatActivity() {
                 override fun onFailure(call: Call, e: IOException) {
 
                     println("Failed to do request!!!")
+                    println(e)
                 }
 
                 override fun onResponse(call: Call, response: Response) {

@@ -71,7 +71,7 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
         Log.d("IDDd", Specific_Meal__ID.toString())
 
         url = APIcalls.REcipe_Info_(Specific_Meal__ID)
-        url_For_Summary = APIcalls.Summarize_Recipes((Specific_Meal__ID))
+        url_For_Summary = APIcalls.Summarize_Recipes(Specific_Meal__ID)
         url_image = getIntent().getStringExtra("img")
 
         Picasso.get().load(url_image).into(card_front)
