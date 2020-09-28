@@ -1,9 +1,8 @@
 package com.example.workoutcompanion.model.roomdb
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.Relation
+
 
 @Entity(tableName = "users")
 data class User (
@@ -16,6 +15,7 @@ data class User (
     val weight: String,
     val height: String,
     val gender: String,
+    val password: String
 
 ) {
     override fun toString(): String = "$firstName $lastName"

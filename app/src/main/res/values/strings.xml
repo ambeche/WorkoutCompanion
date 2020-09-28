@@ -23,5 +23,22 @@
     <string name="meal_picture">Meal Picture</string>
     <string name="title">Title</string>
     <string name="amount_of_calories">amount of calories</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="gender">Gender</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="age">Age</string>
+    <string name="weight_kg">Weight (kg)</string>
+    <string name="height_in_meters">Height (m)</string>
+    <string name="email_address">Email</string>
+    <string name="password">Password</string>
+    <string name="failed_to_create">Missing Field, All fields are required!</string>
+    <string name="register">Register</string>
+    <string name="tag_register_user">registerUser</string>
+    <string name="no_sensor">Step Counter sensor not available on your device!</string>
+    <string name="channel_name">step_counter_service</string>
+    <string name="channel_description">A step counter service notification</string>
+    <string name="notice_title">Step Count</string>
+    <string name="notice_text">Current number of steps counted</string>
 
 </resources>
