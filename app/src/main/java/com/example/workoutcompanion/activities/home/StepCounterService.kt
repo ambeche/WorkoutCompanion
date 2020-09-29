@@ -1,5 +1,6 @@
 package com.example.workoutcompanion.activities.home
 
+import android.Manifest
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -15,8 +16,10 @@ import android.os.IBinder
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.workoutcompanion.R
 import java.lang.Exception
@@ -24,18 +27,19 @@ import java.lang.Exception
 class StepCounterService : Service(), SensorEventListener {
     private var todayCount = 0f
     private var previousSteps = 0f
-    private var currentSteps = 1
+    private var currentSteps = 0
     private var rawSteps: Float? = null
     private var sensorManager: SensorManager? = null
     lateinit var sCounter: Sensor
     lateinit var sharedPref: SharedPreferences
 
      companion object{
-        const val PREF = "com.example.workoutcompanion.STEP_COUNTER"
-        const val PREVIOUS_STEPS = "com.example.workoutcompanion.PREVIOUS_STEPS"
-        const val CHANNEL_ID = "step counter service"
-        const val SERVICE_ID = 1
-        const val UI_UPDATE = "Current Steps"
+         const val PREF = "com.example.workoutcompanion.activities.STEP_COUNTER"
+         const val PREVIOUS_STEPS = "com.example.workoutcompanion.activities.PREVIOUS_STEPS"
+         const val CHANNEL_ID = "com.example.workoutcompanion.activities.STEP_COUNTER_SERVICE"
+         const val SERVICE_ID = 1
+         const val STEP_COUNT_UPDATE = "com.example.workoutcompanion.activities.ACTION_STEPS"
+         const val STEPS = "com.example.workoutcompanion.activities.MESSAGE_STEPS"
     }
     override fun onCreate() {
         super.onCreate()
@@ -50,7 +54,7 @@ class StepCounterService : Service(), SensorEventListener {
 
         if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_STEP_COUNTER))  {
             sensorManager?.registerListener(this, sCounter, SensorManager.SENSOR_DELAY_NORMAL)
-            Log.d("yessssss", sCounter.name)
+            Log.d("PERMITTED", sCounter.name)
 
         } else  toast(getString(R.string.no_sensor))
         // starts foreground service when onStartCommand is called
@@ -70,16 +74,16 @@ class StepCounterService : Service(), SensorEventListener {
 
 
     override fun onSensorChanged(event: SensorEvent) {
-        if (event.sensor == sCounter) {
-            rawSteps = event.values[0]
-            currentSteps = rawSteps?.toInt()?.minus(previousSteps.toInt())!!
+       if (event.sensor == sCounter) {
+           rawSteps = event.values[0]
+           currentSteps = rawSteps?.toInt()?.minus(previousSteps.toInt())!!
 
-            LocalBroadcastManager.getInstance(this).sendBroadcast(Intent().apply {
-                action = UI_UPDATE
-                putExtra("steps", "$currentSteps")
-            })
-            Log.d("rawSteps", rawSteps.toString())
-        }
+           Log.d("rawSteps", rawSteps.toString())
+           sendBroadcast(Intent().apply {
+               action = STEP_COUNT_UPDATE
+               putExtra(STEPS, currentSteps)
+           })
+       }
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
@@ -107,7 +111,7 @@ class StepCounterService : Service(), SensorEventListener {
                 .apply {  Intent.FLAG_ACTIVITY_CLEAR_TASK  }
             setSmallIcon(R.drawable.icon_service_notice)
             setContentText(getString(R.string.notice_title))
-            setContentText(getString(R.string.notice_text))
+            setContentText(getString(R.string.notice_text, currentSteps))
             priority = NotificationCompat.PRIORITY_LOW
             setContentIntent(
                 PendingIntent.getActivity(

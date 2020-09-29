@@ -1,5 +1,6 @@
 package com.example.workoutcompanion.activities.home
 
+import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -11,15 +12,24 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.workoutcompanion.BottomNavListener
 import com.example.workoutcompanion.R
-import com.example.workoutcompanion.activities.home.StepCounterService.Companion.UI_UPDATE
+import com.example.workoutcompanion.activities.home.StepCounterService.Companion.STEPS
+import com.example.workoutcompanion.activities.home.StepCounterService.Companion.STEP_COUNT_UPDATE
 import com.facebook.stetho.Stetho
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var stepsReceiver: BroadcastReceiver
+    private val stepsReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val steps = intent?.getIntExtra(STEPS, 0).toString()
+            tvSteps.text = steps
+            Log.d("stepsUI", steps)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,37 +37,32 @@ class MainActivity : AppCompatActivity() {
         // initialize stetho for debugging: reading room db
        // Stetho.initializeWithDefaults(this)
 
+        if (Build.VERSION.SDK_INT >= 29) {
+            if(ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED){
+                //ask for permission
+                requestPermissions(arrayOf(Manifest.permission.ACTIVITY_RECOGNITION), 2);
+            }
+        }
         bottom_navigation.apply {
             selectedItemId = R.id.home
             setOnNavigationItemSelectedListener(
                 BottomNavListener(this@MainActivity, MainActivity::class.java )
             )
         }
-        startService(this)
-
-        stepsReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                val steps = intent?.getStringExtra("steps")
-                tvSteps.text = steps
-                if (steps != null) {
-                    Log.d("stepsUI", steps)
-                }
-            }
-        }
-
     }
 
     override fun onStart() {
         super.onStart()
-        LocalBroadcastManager.getInstance(this)
-            .registerReceiver(stepsReceiver, IntentFilter("Counter"))
+        registerReceiver(stepsReceiver, IntentFilter(STEP_COUNT_UPDATE))
+        startService(this)
+        super.onStart()
     }
 
     override fun onStop() {
         super.onStop()
-        LocalBroadcastManager.getInstance(this)
-            .unregisterReceiver(stepsReceiver)
-        //stopService(this)
+        unregisterReceiver(stepsReceiver)
+        stopService(this)
     }
 
     private fun startService (context: Context) {
