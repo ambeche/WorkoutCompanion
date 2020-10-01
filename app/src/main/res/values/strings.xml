@@ -41,6 +41,11 @@
     <string name="channel_description">A step counter service notification</string>
     <string name="notice_title">Step Count</string>
     <string name="notice_text">Current number of steps counted %1d</string>
+    <string name="number_of_steps">steps</string>
+    <string name="distance_km">%1skm</string>
+    <string name="calories_cal">000 kcal</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

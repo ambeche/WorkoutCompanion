@@ -1,29 +1,29 @@
 package com.example.workoutcompanion.activities.home
 
 import android.Manifest
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.workoutcompanion.BottomNavListener
 import com.example.workoutcompanion.R
 import com.example.workoutcompanion.activities.chat.NewMessageActivity
 import com.example.workoutcompanion.activities.chat.RegisterActivity
 import com.example.workoutcompanion.activities.chat.User
-import com.example.workoutcompanion.activities.diet.Nutrition
+import com.example.workoutcompanion.activities.home.StepCounterService.Companion.DISTANCE_METER
+import com.example.workoutcompanion.activities.home.StepCounterService.Companion.PREF
 import com.example.workoutcompanion.activities.home.StepCounterService.Companion.STEPS
 import com.example.workoutcompanion.activities.home.StepCounterService.Companion.STEP_COUNT_UPDATE
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.workoutcompanion.model.WorkoutCompanionViewModel
+import com.example.workoutcompanion.model.roomdb.StepCounts
+import com.facebook.stetho.Stetho
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -32,31 +32,49 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var appViewModel: WorkoutCompanionViewModel
+    private lateinit var sharedPref: SharedPreferences
+    private val stepService = StepCounterService()
     companion object {
         var currentUser: User? = null
     }
+    // receives steps broadcast from StepCounter service
     private val stepsReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val steps = intent?.getIntExtra(STEPS, 0).toString()
-            //tvSteps.text = steps
+            val stepsFromPref = sharedPref.getFloat(stepService.todayDate, 0f).toString()
+            tvSteps.text = stepsFromPref
+            // steps progress bar set up
+            progressBar.apply {
+                setProgressWithAnimation(steps.toFloat(), 2000)
+                startAngle = 180f
+            }
             Log.d("stepsUI", steps)
+
+            val distance = intent?.getDoubleExtra(DISTANCE_METER, 0.0).toString()
+            tvDistance.text = getString(R.string.distance_km, distance)
+
+            // persists the day's count to db and stops counter service
+            val owner = "tamanji.ambe@gmail.com"
+            val stepsToDB = StepCounts (stepService.todayDate, owner,
+                sharedPref.getFloat(stepService.todayDate, 0f))
+            appViewModel.addStepsToDb(stepsToDB)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Stetho.initializeWithDefaults(this)
         // request permission to use step counter
         if (Build.VERSION.SDK_INT >= 29) {
             if(ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED){
-                //ask for permission
-                requestPermissions(arrayOf(Manifest.permission.ACTIVITY_RECOGNITION), 2);
+                requestPermissions(arrayOf(Manifest.permission.ACTIVITY_RECOGNITION), 2)
             }
         }
-        fetchCurrentUser()
 
+        fetchCurrentUser()
         verifyuserIsLogrdIn()
 
         bottom_navigation.apply {
@@ -65,6 +83,21 @@ class MainActivity : AppCompatActivity() {
                 BottomNavListener(this@MainActivity, MainActivity::class.java )
             )
         }
+        appViewModel = ViewModelProvider(this).get(WorkoutCompanionViewModel::class.java)
+
+        sharedPref = getSharedPreferences(PREF, Context.MODE_PRIVATE)
+        tvSteps.apply {
+            if (text == getText(R.string.number_of_steps))
+            // verify and loads step counts from preferences
+                text = sharedPref.getFloat(stepService.todayDate, 0f).toInt().toString()
+
+            setOnLongClickListener {
+                stopService(this@MainActivity)
+                true
+            }
+        }
+        updateCountInfo(tvDistance, stepService.dateForDistance, R.string.distance_km)
+
 
     }
 
@@ -78,9 +111,8 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         unregisterReceiver(stepsReceiver)
-        stopService(this)
     }
-
+    // foreground or background service started based on the SDK version
     private fun startService (context: Context) {
         val startIntent = Intent(context, StepCounterService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)  {
@@ -139,5 +171,10 @@ class MainActivity : AppCompatActivity() {
 
         menuInflater.inflate(R.menu.nav_menu,menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun updateCountInfo(tv: TextView, txt:String, string: Int){
+        if (tv.text == getText(string))
+            tv.text = getString(string, sharedPref.getString(txt,"0"))
     }
 }

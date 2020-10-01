@@ -39,7 +39,7 @@ class RegisterUserFragment : Fragment() {
         }
     }*/
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+   /* override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userViewModel = ViewModelProvider(this).get(WorkoutCompanionViewModel::class.java)
 
@@ -64,7 +64,7 @@ class RegisterUserFragment : Fragment() {
 
         return fragLayout
     }
-
+*/
     /*private fun addUserToDB () {
         if (isNotEmptyTV(evFirstName, evLastName, evAge, evGender,
                 evEmail, evWeight, evPhone, evPassWord, evHeight)){

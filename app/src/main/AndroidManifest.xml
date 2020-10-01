@@ -7,7 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_REC‌​OGNITION"/>
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_REC‌​OGNITION" />
+
     <uses-feature android:name="android.hardware.Sensor.STEP_COUNTER" />
 
     <application
@@ -17,18 +18,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver
+            android:name=".activities.home.StepsReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
         <service
             android:name=".activities.home.StepCounterService"
             android:enabled="true"
             android:exported="false" />
 
         <activity android:name=".activities.routines.RoutinesActivity" />
-
         <activity android:name=".activities.diet.ResultOfDiet1" />
         <activity android:name=".activities.diet.Nutrition" />
         <activity android:name=".activities.diet.RecipeInfoSpesific" />
-
-
         <activity android:name=".activities.home.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,26 +39,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activities.chat.RegisterActivity"/>
-        <activity android:name=".activities.chat.LoginActivity"/>
-
+        <activity android:name=".activities.chat.RegisterActivity" />
+        <activity android:name=".activities.chat.LoginActivity" />
         <activity android:name=".activities.chat.NewMessageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.chat.LatestMessageActivity" />
         </activity>
-
-        <activity android:name=".activities.chat.LatestMessageActivity"/>
-
+        <activity android:name=".activities.chat.LatestMessageActivity" />
         <activity android:name=".activities.chat.ChatLogActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.chat.NewMessageActivity" />
         </activity>
-
         <activity android:name=".activities.chat.ChatActivity" />
-
     </application>
 
 </manifest>
