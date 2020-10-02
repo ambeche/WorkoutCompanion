@@ -22,13 +22,12 @@ import kotlin.math.roundToInt
 class StepCounterService : Service(), SensorEventListener {
     val todayDate: String = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date())
     val dateForDistance = "$todayDate-km"
-    var isUpdated = true
     private var stepsBeforeReset = 0f
     private var previousSteps = 0f
     private var currentSteps = 0
     private var rawSteps: Float = 0f
     private var sensorManager: SensorManager? = null
-    private lateinit var sCounter: Sensor
+    private var sCounter: Sensor? = null
     private lateinit var sharedPref: SharedPreferences
 
     companion object{
@@ -44,7 +43,7 @@ class StepCounterService : Service(), SensorEventListener {
     override fun onCreate() {
         super.onCreate()
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        sCounter = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!!
+        sCounter = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -53,7 +52,7 @@ class StepCounterService : Service(), SensorEventListener {
 
         if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_STEP_COUNTER))  {
             sensorManager?.registerListener(this, sCounter, SensorManager.SENSOR_DELAY_NORMAL)
-            Log.d("PERMITTED", sCounter.name)
+            sCounter?.name?.let { Log.d("PERMITTED", it) }
 
         } else  toast(getString(R.string.no_sensor))
         // starts foreground service when onStartCommand is called

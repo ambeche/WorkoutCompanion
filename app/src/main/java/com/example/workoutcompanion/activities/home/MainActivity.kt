@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     private val stepsReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val steps = intent?.getIntExtra(STEPS, 0).toString()
-            val stepsFromPref = sharedPref.getFloat(stepService.todayDate, 0f).toString()
+            val stepsFromPref = sharedPref.getFloat(stepService.todayDate, 0f).toInt().toString()
             tvSteps.text = stepsFromPref
             // steps progress bar set up
             progressBar.apply {
@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
             val owner = "tamanji.ambe@gmail.com"
             val stepsToDB = StepCounts (stepService.todayDate, owner,
                 sharedPref.getFloat(stepService.todayDate, 0f))
+
             appViewModel.addStepsToDb(stepsToDB)
         }
     }
@@ -77,15 +78,23 @@ class MainActivity : AppCompatActivity() {
         fetchCurrentUser()
         verifyuserIsLogrdIn()
 
+        // set bottom navigation bar
         bottom_navigation.apply {
             selectedItemId = R.id.home
             setOnNavigationItemSelectedListener(
                 BottomNavListener(this@MainActivity, MainActivity::class.java )
             )
         }
-        appViewModel = ViewModelProvider(this).get(WorkoutCompanionViewModel::class.java)
+        // loads charts on home screen
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragments_container_home, StepsBarChartFragment.newInstance(),
+                getString(R.string.tag_barchart))
+            .commit()
 
+        appViewModel = ViewModelProvider(this).get(WorkoutCompanionViewModel::class.java)
         sharedPref = getSharedPreferences(PREF, Context.MODE_PRIVATE)
+
         tvSteps.apply {
             if (text == getText(R.string.number_of_steps))
             // verify and loads step counts from preferences

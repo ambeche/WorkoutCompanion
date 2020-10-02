@@ -42,10 +42,17 @@
     <string name="notice_title">Step Count</string>
     <string name="notice_text">Current number of steps counted %1d</string>
     <string name="number_of_steps">steps</string>
-    <string name="distance_km">%1skm</string>
+    <string name="distance_km">%1s km</string>
     <string name="calories_cal">000 kcal</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="steps_label">Steps</string>
+    <string name="tag_barchart">steps bar chart</string>
+    <string name="daily_step_counts">Daily Step Counts</string>
+    <string name="step_goals">/1500 steps</string>
+    <string name="running_speed">0.0 m^2</string>
+    <string name="login">Login</string>
+    <string name="send">Send</string>
 
 
 </resources>

@@ -17,6 +17,7 @@ class WorkoutCompanionViewModel(application: Application): AndroidViewModel(appl
         WorkoutCompanionDB.get(application).stepCountsDao() )
 
     val userData: LiveData<List<User>> = repository.userData
+    val userSteps: LiveData<List<StepCounts>> = repository.userSteps
 
     fun addUser(user: User) {
         viewModelScope.launch(Dispatchers.IO) {

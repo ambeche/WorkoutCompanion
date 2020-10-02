@@ -24,8 +24,8 @@ class LoginActivity: AppCompatActivity() {
     }
 
     private fun performLogin() {
-        val email = email_texti.text.toString()
-        val password = Pass_texti.text.toString()
+        val email = email_texti.editText?.text.toString()
+        val password = Pass_texti.editText?.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill out email/pw.", Toast.LENGTH_SHORT).show()

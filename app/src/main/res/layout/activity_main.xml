@@ -7,42 +7,53 @@
     android:layout_height="match_parent"
     tools:context=".activities.home.MainActivity">
 
-    <RelativeLayout
+
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="165dp"
+        android:layout_height="165dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        app:cpb_background_progressbar_color="@color/colorAccent"
+        app:cpb_background_progressbar_width="24dp"
+        app:cpb_progress_direction="to_right"
+        app:cpb_progress_max="1500"
+        app:cpb_progressbar_color="#9C27B0"
+        app:cpb_progressbar_width="15dp"
+        app:cpb_round_border="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSteps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:outlineProvider="none"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="56dp"
+        android:text="@string/number_of_steps"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintStart_toStartOf="@+id/progressBar"
+        app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
-        <com.mikhaellopez.circularprogressbar.CircularProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerInParent="true"
-
-            app:cpb_background_progressbar_color="@color/colorAccent"
-            app:cpb_background_progressbar_width="30dp"
-            app:cpb_progress_direction="to_right"
-            app:cpb_progress_max="1000"
-            app:cpb_progressbar_color="#9C27B0"
-            app:cpb_progressbar_width="25dp"
-            app:cpb_round_border="true" />
-
-        <TextView
-            android:id="@+id/tvSteps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/number_of_steps"
-            android:textSize="40sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/tvGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/step_goals"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/tvSteps" />
 
     <LinearLayout
+        android:id="@+id/params"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="16dp"
         android:background="@color/colorAccent"
         android:elevation="1dp"
@@ -56,6 +67,11 @@
             style="@style/stepCounterTextView"
             android:layout_marginBottom="4dp"
             android:text="@string/distance_km" />
+        <TextView
+            android:id="@+id/tvSpeed"
+            style="@style/stepCounterTextView"
+            android:layout_marginBottom="4dp"
+            android:text="@string/running_speed" />
 
         <TextView
             android:id="@+id/tvCalories"
@@ -64,20 +80,16 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/fragments_container_home"
         android:layout_width="match_parent"
         android:layout_height="480dp"
-        android:gravity="bottom"
-
-        android:orientation="vertical"
-        android:background="@color/colorSecondaryLight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintTop_toTopOf="@id/guideline4">
 
-    </LinearLayout>
+    </FrameLayout>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

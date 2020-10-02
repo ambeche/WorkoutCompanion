@@ -3,12 +3,9 @@ package com.example.workoutcompanion.activities.chat
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
 import android.provider.MediaStore
@@ -17,20 +14,15 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutcompanion.R
 import com.example.workoutcompanion.activities.home.MainActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.fragment_register_user.view.*
-import java.net.URI
 import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
