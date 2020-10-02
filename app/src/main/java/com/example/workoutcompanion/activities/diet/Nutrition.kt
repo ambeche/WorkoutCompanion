@@ -44,9 +44,10 @@ class Nutrition : AppCompatActivity(), View.OnClickListener {
     override fun onClick(p0: View?) {
         when(p0){
 
-            btn_Keto  ->      {URL_To_Call = APIcalls.Diet_endPoint + "&diet=Ketogenic&number=10"
+            btn_Keto  ->      {URL_To_Call = APIcalls.Diet_endPoint + "&diet=Ketogenic&number=1"
                                 val intent = Intent(this, ResultOfDiet1::class.java).apply {
                                     putExtra("DietFilter", URL_To_Call)
+                                    putExtra("DietType","Ketogenic")
                                 }
                                 startActivity(intent)
                             }
@@ -54,6 +55,7 @@ class Nutrition : AppCompatActivity(), View.OnClickListener {
             btn_Gluteineton -> {URL_To_Call = APIcalls.Diet_endPoint + "&diet=GlutenFree&number=10"
                                 val intent = Intent(this, ResultOfDiet1::class.java).apply {
                                     putExtra("DietFilter", URL_To_Call)
+                                    putExtra("DietType","Gluten Free")
                                 }
                                 startActivity(intent)
 
@@ -64,6 +66,7 @@ class Nutrition : AppCompatActivity(), View.OnClickListener {
             btn_Vegetarian ->  {URL_To_Call = APIcalls.Diet_endPoint + "&diet=Vegetarian&number=10"
                                 val intent = Intent(this, ResultOfDiet1::class.java).apply {
                                     putExtra("DietFilter", URL_To_Call)
+                                    putExtra("DietType","Vegetarian")
                                 }
                                 startActivity(intent)
                             }
@@ -71,6 +74,7 @@ class Nutrition : AppCompatActivity(), View.OnClickListener {
             btn_Lacto_vege ->  {URL_To_Call = APIcalls.Diet_endPoint + "&diet=Lacto-Vegetarian&number=10"
                                 val intent = Intent(this, ResultOfDiet1::class.java).apply {
                                     putExtra("DietFilter", URL_To_Call)
+                                    putExtra("DietType","Lacto-Vegetarian")
                                 }
                                 startActivity(intent)
                             }
@@ -78,6 +82,7 @@ class Nutrition : AppCompatActivity(), View.OnClickListener {
             btn_Ovo_vrge ->     {URL_To_Call = APIcalls.Diet_endPoint + "&diet=Ovo-Vegetarian&number=10"
                                 val intent = Intent(this, ResultOfDiet1::class.java).apply {
                                     putExtra("DietFilter", URL_To_Call)
+                                    putExtra("DietType","Ovo-Vegetarian")
                                 }
                                 startActivity(intent)
                             }
@@ -85,6 +90,7 @@ class Nutrition : AppCompatActivity(), View.OnClickListener {
             btn_paleo  ->       {URL_To_Call = APIcalls.Diet_endPoint + "&diet=Paleo&number=10"
                                 val intent = Intent(this, ResultOfDiet1::class.java).apply {
                                     putExtra("DietFilter", URL_To_Call)
+                                    putExtra("DietType","Paleo")
                                 }
                                 startActivity(intent)
                             }
@@ -92,6 +98,7 @@ class Nutrition : AppCompatActivity(), View.OnClickListener {
             btn_Primal  ->       {URL_To_Call = APIcalls.Diet_endPoint + "&diet=Primal&number=10"
                                  val intent = Intent(this, ResultOfDiet1::class.java).apply {
                                     putExtra("DietFilter", URL_To_Call)
+                                     putExtra("DietType","Primal")
                                 }
                                 startActivity(intent)
                             }
@@ -99,6 +106,7 @@ class Nutrition : AppCompatActivity(), View.OnClickListener {
             btn_whole30  ->      {URL_To_Call = APIcalls.Diet_endPoint + "&diet=Whole30&number=10"
                                   val intent = Intent(this, ResultOfDiet1::class.java).apply {
                                         putExtra("DietFilter", URL_To_Call)
+                                      putExtra("DietType","Whole30")
                                     }
                                     startActivity(intent)
                                 }
@@ -106,6 +114,7 @@ class Nutrition : AppCompatActivity(), View.OnClickListener {
             btn_pescatarian ->    {URL_To_Call = APIcalls.Diet_endPoint + "&diet=pescartian&number=10"
                                     val intent = Intent(this, ResultOfDiet1::class.java).apply {
                                         putExtra("DietFilter", URL_To_Call)
+                                        putExtra("DietType","Pescetarian")
                                     }
                                     startActivity(intent)
                                 }

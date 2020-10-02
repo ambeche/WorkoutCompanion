@@ -46,7 +46,7 @@ class AdapterForDiet1(val context:Context,val resultdiet1: ResultfromDietclass,v
 
         holder?.view?.title.text = resulti.title
         holder?.view?.setOnClickListener { clickListener(resulti) }
-        holder?.view?.calory_textView.text = resulti.id.toString()
+
 
     }
 

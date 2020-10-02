@@ -96,7 +96,7 @@ class ChatLogActivity : AppCompatActivity() {
 
         val fromId = FirebaseAuth.getInstance().uid
         val user = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
-        val toId = user.uid
+        val toId = user?.uid
 
         if (fromId == null) return
 
@@ -104,7 +104,10 @@ class ChatLogActivity : AppCompatActivity() {
 
         val toReference = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
 
-        val chatMessage = ChatMessage(reference.key!!, text, fromId, toId, System.currentTimeMillis() / 1000)
+        val chatMessage = toId?.let {
+            ChatMessage(reference.key!!, text, fromId,
+                it, System.currentTimeMillis() / 1000)
+        }
         reference.setValue(chatMessage)
             .addOnSuccessListener {
                 Log.d("SendMessage", "Saved our chat message: ${reference.key}")
@@ -127,7 +130,7 @@ class ChatLogActivity : AppCompatActivity() {
 
         val fromId = FirebaseAuth.getInstance().uid
         val user = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
-        val toId = user.uid
+        val toId = user?.uid
 
 
 
@@ -190,7 +193,7 @@ class ChatLogActivity : AppCompatActivity() {
                    val chatImageMessage = p0.getValue(ImagChatMessage::class.java)
 
                    if (chatImageMessage != null) {
-                       Log.d("ListenToImageMessage",chatImageMessage.bitm)
+                       chatImageMessage.bitm?.let { Log.d("ListenToImageMessage", it) }
 
                        if (chatImageMessage.fromId == FirebaseAuth.getInstance().uid) {
                            val currentUser = MainActivity.currentUser ?: return
@@ -302,7 +305,7 @@ class ChatLogActivity : AppCompatActivity() {
 
         val fromId = FirebaseAuth.getInstance().uid
         val user = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
-        val toId = user.uid
+        val toId = user?.uid
 
 
         if (fromId == null || sharableimg == null) return

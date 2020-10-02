@@ -2,21 +2,16 @@ package com.example.workoutcompanion.activities.diet
 
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
-import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workoutcompanion.BottomNavListener
 import com.example.workoutcompanion.R
-import com.example.workoutcompanion.adapters.AdapterForDiet1
 import com.example.workoutcompanion.interfaces.DietComunicator
 import com.example.workoutcompanion.model.APIcalls
 import com.google.gson.GsonBuilder
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.nutrition_main_page.*
 import kotlinx.android.synthetic.main.recipe_specific.*
-import kotlinx.android.synthetic.main.testingresult1.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -38,6 +33,8 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.recipe_specific)
+
+        this.getSupportActionBar()?.hide();
 
 
         val scale:Float = applicationContext.resources.displayMetrics.density
@@ -150,8 +147,11 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
 
                     runOnUiThread {
                         textView_Fat.text = api_diet_3.bad[1].amount
+                        Fat_per.text = api_diet_3.bad[1].percentOfDailyNeeds.toString()
                         textView_Carbohydrates.text = api_diet_3.bad[3].amount
+                        Calrb_per.text = api_diet_3.bad[3].percentOfDailyNeeds.toString()
                         textView_Protein.text = api_diet_3.good[0].amount
+                        Prot_per.text = api_diet_3.good[0].percentOfDailyNeeds.toString()
                         TextView_Calorie.text = api_diet_3.calories + "Kcal"
                     }
 
@@ -185,9 +185,9 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
 
 class ContentofSpesific(val calories:String,val  bad:List<DeepInfoBad>, val good:List<DeepInfoGood>)
 
-class DeepInfoBad(val title : String,val amount:String, val percentOfDailyNee: Float)
+class DeepInfoBad(val title : String,val amount:String, val percentOfDailyNeeds: Float)
 
-class DeepInfoGood(val title : String,val amount:String, val percentOfDailyNee: Float)
+class DeepInfoGood(val title : String,val amount:String, val percentOfDailyNeeds: Float)
 
 
 class ContentofSummary(val summary:String)

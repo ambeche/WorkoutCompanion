@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import com.example.workoutcompanion.BottomNavListener
 import com.example.workoutcompanion.R
+import com.example.workoutcompanion.activities.MusicActivity
 import com.example.workoutcompanion.activities.chat.NewMessageActivity
 import com.example.workoutcompanion.activities.chat.RegisterActivity
 import com.example.workoutcompanion.activities.chat.User
@@ -44,6 +45,11 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        button_Music.setOnClickListener {
+            val intent = Intent(this,MusicActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun fetchCurrentUser() {
@@ -71,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item?.itemId) {
             R.id.menu_new_message -> {
                 val intent = Intent(this, NewMessageActivity::class.java)

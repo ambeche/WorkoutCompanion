@@ -100,9 +100,10 @@ class RegisterActivity : AppCompatActivity() {
         val pass = getInput(edit_PassWord)
 
         if(email.isEmpty() || pass.isEmpty()) {
-            Toast.makeText(this,"Please filll in the fields",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Please fill in the fields",Toast.LENGTH_SHORT).show()
             return
         }
+:
 
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,pass).addOnCompleteListener{
             if (!it.isSuccessful){
