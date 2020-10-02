@@ -103,7 +103,7 @@ class RegisterActivity : AppCompatActivity() {
             Toast.makeText(this,"Please fill in the fields",Toast.LENGTH_SHORT).show()
             return
         }
-:
+
 
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,pass).addOnCompleteListener{
             if (!it.isSuccessful){

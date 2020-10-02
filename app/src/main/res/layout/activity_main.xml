@@ -8,18 +8,6 @@
     android:layout_gravity="bottom"
     tools:context=".activities.home.MainActivity">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationLottifit"
-        android:layout_width="261dp"
-        android:layout_height="216dp"
-        android:layout_marginTop="172dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="cook.json"
-        app:lottie_loop="true" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -29,15 +17,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
-
-    <Button
-        android:id="@+id/button_Music"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="140dp"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/animationLottifit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

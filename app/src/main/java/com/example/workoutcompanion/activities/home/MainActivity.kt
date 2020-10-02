@@ -45,11 +45,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        button_Music.setOnClickListener {
-            val intent = Intent(this,MusicActivity::class.java)
-            startActivity(intent)
-        }
-
     }
 
     private fun fetchCurrentUser() {
@@ -78,7 +73,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item?.itemId) {
+        when (item.itemId) {
             R.id.menu_new_message -> {
                 val intent = Intent(this, NewMessageActivity::class.java)
                 startActivity(intent)
