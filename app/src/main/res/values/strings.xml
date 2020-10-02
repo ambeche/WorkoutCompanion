@@ -36,6 +36,23 @@
     <string name="log_in">Log-in</string>
     <string name="load_avatar">Load Avatar</string>
     <string name="username">username</string>
+    <string name="no_sensor">Step Counter sensor not available on your device!</string>
+    <string name="channel_name">step_counter_service</string>
+    <string name="channel_description">A step counter service notification</string>
+    <string name="notice_title">Step Count</string>
+    <string name="notice_text">Current number of steps counted %1d</string>
+    <string name="number_of_steps">steps</string>
+    <string name="distance_km">%1s km</string>
+    <string name="calories_cal">000 kcal</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="steps_label">Steps</string>
+    <string name="tag_barchart">steps bar chart</string>
+    <string name="daily_step_counts">Daily Step Counts</string>
+    <string name="step_goals">/1500 steps</string>
+    <string name="running_speed">0.0 m^2</string>
+    <string name="login">Login</string>
+    <string name="send">Send</string>
     <string name="minimum_calories">minimum calories</string>
     <string name="max_calories">max calories</string>
     <string name="min_calories">min calories</string>
@@ -58,5 +75,6 @@
     <string name="paleo_diet_image">Paleo diet image</string>
     <string name="primal_diet_image">Primal diet image</string>
     <string name="whole_30_diet_image">Whole 30 diet image</string>
+
 
 </resources>

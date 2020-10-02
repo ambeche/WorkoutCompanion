@@ -7,16 +7,14 @@ import androidx.room.Relation
 
 @Entity(tableName = "users")
 data class User (
-    @PrimaryKey(autoGenerate = true) val userId: Long,
-    val firstName: String,
-    val lastName: String,
+    @PrimaryKey val email: String,
+    val username: String,
     val phone: String,
-    val email: String,
     val age: String,
     val weight: String,
     val height: String,
     val gender: String,
 
 ) {
-    override fun toString(): String = "$firstName $lastName"
+    override fun toString(): String = "$username $email"
 }

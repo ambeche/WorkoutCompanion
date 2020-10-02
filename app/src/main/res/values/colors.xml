@@ -2,10 +2,10 @@
   <color name="colorPrimary">#AB47BC</color>
   <color name="colorPrimaryLight">#BA68C8</color>
   <color name="colorPrimaryDark">#4527A0</color>
-  <color name="colorAccent">#FF3D00</color>
+  <color name="colorAccent">#E1BEE7</color>
   <color name="colorSecondaryLight">#FF9E80</color>
   <color name="colorSecondaryDark">#DD2C00</color>
-  <color name="textColor">#ffffff</color>
+  <color name="textColorOnPrimary">#ffffff</color>
   <color name="color1">#4527A0</color>
   <color name="color2">#2F589E</color>
   <color name="color3">#3A1B18</color>
