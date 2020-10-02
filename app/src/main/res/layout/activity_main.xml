@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".activities.home.MainActivity">
 
-
     <com.mikhaellopez.circularprogressbar.CircularProgressBar
         android:id="@+id/progressBar"
         android:layout_width="165dp"
@@ -90,7 +89,6 @@
         app:layout_constraintTop_toTopOf="@id/guideline4">
 
     </FrameLayout>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

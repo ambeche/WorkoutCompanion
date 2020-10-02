@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.workoutcompanion.BottomNavListener
 import com.example.workoutcompanion.R
+import com.example.workoutcompanion.activities.MusicActivity
 import com.example.workoutcompanion.activities.chat.NewMessageActivity
 import com.example.workoutcompanion.activities.chat.RegisterActivity
 import com.example.workoutcompanion.activities.chat.User

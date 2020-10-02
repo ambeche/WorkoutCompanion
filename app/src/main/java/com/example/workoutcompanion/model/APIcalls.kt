@@ -37,6 +37,11 @@ object APIcalls {
         val info_recipe = "https://api.spoonacular.com/recipes/${id}/nutritionWidget.json?apiKey=${MyToken.apiKey}"
         return info_recipe
     }
+
+    fun SearchByCal(name:String?,min:String?,max:String?,type:String?):String {
+        val searchMeal = Diet_endPoint + "&minCalories=${min}&maxCalories=${max}&query=${name}&diet=${type}&number=2"
+        return searchMeal
+    }
 }
 
 object MyToken {

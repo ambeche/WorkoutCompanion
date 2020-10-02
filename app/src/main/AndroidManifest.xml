@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_REC‌​OGNITION" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
 
     <uses-feature android:name="android.hardware.Sensor.STEP_COUNTER" />
 
@@ -53,6 +53,8 @@
                 android:value=".activities.chat.NewMessageActivity" />
         </activity>
         <activity android:name=".activities.chat.ChatActivity" />
+
+        <activity android:name=".activities.MusicActivity"/>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
@@ -10,45 +11,53 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:backgroundTint="@color/color2">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="88dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="32dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp">
+                android:layout_marginRight="20dp">
 
 
                 <TextView
                     android:id="@+id/textDachBoard"
-                    android:textSize="24sp"
-                    android:text="@string/diet_header"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="42dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="6dp"
+
+                    android:text="@string/diet_header"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:ignore="RelativeOverlap" />
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textDachBoard"
-                    android:layout_marginTop="6dp"
-                    android:textColor="@color/color1"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="15dp"
                     android:text="@string/number_diet"
+                    android:textColor="@color/color1"
                     android:textSize="14sp" />
 
-
-
-
-
-
-                <ImageView
-                    android:layout_width="62dp"
-                    android:layout_height="62dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_launcher_background"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/food_widget"
+                    android:layout_width="112dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="food.json"
+                    app:lottie_loop="true" />
 
 
             </RelativeLayout>
@@ -78,21 +87,23 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:layout_width="140dp"
                             android:layout_height="80dp"
-                            android:layout_marginLeft="0dp"
-                            android:src="@drawable/gluten_no" />
+                            android:layout_marginStart="0dp"
+                            android:src="@drawable/gluten_no"
+                            android:contentDescription="@string/gluten_free_image" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="Calendar"
+                            android:text="@string/gluten_free"
                             android:textColor="@color/color3"
-                            android:textSize="18dp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -121,16 +132,17 @@
                         <ImageView
                             android:layout_width="140dp"
                             android:layout_height="80dp"
-                            android:layout_marginLeft="0dp"
-                            android:src="@drawable/veg" />
+                            android:layout_marginStart="0dp"
+                            android:src="@drawable/veg"
+                            android:contentDescription="@string/vegan_image" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="Calendar"
+                            android:text="@string/vegan"
                             android:textColor="@color/color3"
-                            android:textSize="18dp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -153,21 +165,23 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:layout_marginLeft="0dp"
-                            android:src="@drawable/lacto" />
+                            android:layout_marginStart="0dp"
+                            android:src="@drawable/lacto"
+                            android:contentDescription="@string/lacto_vegan_image" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="Calendar"
+                            android:text="@string/lacto_vegan"
                             android:textColor="@color/color3"
-                            android:textSize="18dp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -189,21 +203,23 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:layout_marginLeft="0dp"
-                            android:src="@drawable/keto" />
+                            android:layout_marginStart="0dp"
+                            android:src="@drawable/keto"
+                            android:contentDescription="@string/keto_image" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="Calendar"
+                            android:text="@string/keto"
                             android:textColor="@color/color3"
-                            android:textSize="18dp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -226,20 +242,22 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:layout_width="140dp"
                             android:layout_height="80dp"
-                            android:src="@drawable/egg2" />
+                            android:src="@drawable/egg2"
+                            android:contentDescription="@string/ovo_vegan_image" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="Calendar"
+                            android:text="@string/ovo_vegan"
                             android:textColor="@color/color3"
-                            android:textSize="18dp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -262,20 +280,22 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:src="@drawable/peche" />
+                            android:src="@drawable/peche"
+                            android:contentDescription="@string/pescatrian_image" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="Calendar"
+                            android:text="@string/pescatrian"
                             android:textColor="@color/color3"
-                            android:textSize="18dp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -298,20 +318,22 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:src="@drawable/paleo" />
+                            android:src="@drawable/paleo"
+                            android:contentDescription="@string/paleo_diet_image" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="Calendar"
+                            android:text="@string/paleo"
                             android:textColor="@color/color3"
-                            android:textSize="18dp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -334,20 +356,22 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:src="@drawable/primal" />
+                            android:src="@drawable/primal"
+                            android:contentDescription="@string/primal_diet_image" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="Calendar"
+                            android:text="@string/primal"
                             android:textColor="@color/color3"
-                            android:textSize="18dp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -370,53 +394,20 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        tools:ignore="UseCompoundDrawables">
 
                         <ImageView
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:src="@drawable/whole30" />
+                            android:src="@drawable/whole30"
+                            android:contentDescription="@string/whole_30_diet_image" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:text="Calendar"
-                            android:textColor="@color/color3"
-                            android:textSize="18dp" />
-
-                    </LinearLayout>
-
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"
-                    app:cardElevation="6dp"
-                    app:cardCornerRadius="12dp"
-                    android:layout_margin="12dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:src="@drawable/ic_launcher_background" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:text="Onprocess"
+                            android:text="@string/whole_30"
                             android:textColor="@color/color3"
                             android:textSize="18sp" />
 
@@ -424,6 +415,8 @@
 
 
                 </androidx.cardview.widget.CardView>
+
+
 
             </GridLayout>
 
