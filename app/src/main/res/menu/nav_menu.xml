@@ -7,5 +7,9 @@
         android:title="Sign Out"
         app:showAsAction="ifRoom"/>
 
+    <item android:id="@+id/music_btn"
+        android:title="Music"
+        app:showAsAction="ifRoom"/>
+
 
 </menu>

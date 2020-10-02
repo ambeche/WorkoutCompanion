@@ -162,8 +162,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_new_message -> {
-                val intent = Intent(this, NewMessageActivity::class.java)
+            R.id.music_btn -> {
+                val intent = Intent(this, MusicActivity::class.java)
                 startActivity(intent)
             }
             R.id.menu_sign_out -> {

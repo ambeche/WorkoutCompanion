@@ -109,4 +109,10 @@ dependencies {
 
     implementation 'com.airbnb.android:lottie:3.4.2'
 
+    implementation 'org.jetbrains.anko:anko:0.10.1'
+    implementation 'com.mtechviral.mplaylib:mplaylib:1.0.0'
+
+    implementation 'com.progur.droidmelody:droidmelody:1.0.2'
+    implementation 'com.airbnb.android:lottie:3.4.2'
+
 }
