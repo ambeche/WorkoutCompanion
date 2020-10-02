@@ -5,7 +5,7 @@
     <string name="text_label_chat">Chat</string>
     <string name="text_label_diets">Diets</string>
     <string name="diet_header">Select your suitable diet</string>
-    <string name="number_diet">10 diets available:</string>
+    <string name="number_diet">9 diets available:</string>
     <string name="activity_title_chat">Messaging</string>
     <string name="activity_title_routines">Routines</string>
     <string name="nutrition_informations">Nutrition Informations</string>
@@ -36,5 +36,27 @@
     <string name="log_in">Log-in</string>
     <string name="load_avatar">Load Avatar</string>
     <string name="username">username</string>
+    <string name="minimum_calories">minimum calories</string>
+    <string name="max_calories">max calories</string>
+    <string name="min_calories">min calories</string>
+    <string name="meal">Meal</string>
+    <string name="gluten_free">Gluten-free</string>
+    <string name="vegan">Vegan</string>
+    <string name="lacto_vegan">Lacto-vegan</string>
+    <string name="keto">Keto</string>
+    <string name="ovo_vegan">Ovo-vegan</string>
+    <string name="pescatrian">Pescatrian</string>
+    <string name="paleo">Paleo</string>
+    <string name="primal">Primal</string>
+    <string name="whole_30">Whole 30</string>
+    <string name="gluten_free_image">Gluten-free image</string>
+    <string name="vegan_image">Vegan image</string>
+    <string name="lacto_vegan_image">Lacto vegan image</string>
+    <string name="keto_image">Keto image</string>
+    <string name="ovo_vegan_image">Ovo vegan image</string>
+    <string name="pescatrian_image">Pescatrian image</string>
+    <string name="paleo_diet_image">Paleo diet image</string>
+    <string name="primal_diet_image">Primal diet image</string>
+    <string name="whole_30_diet_image">Whole 30 diet image</string>
 
 </resources>

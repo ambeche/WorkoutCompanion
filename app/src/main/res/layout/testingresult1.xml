@@ -1,28 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
 
+    <EditText
+        android:id="@+id/edit_Max"
+        android:layout_width="101dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/max_calories"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/edit_Meal"
+        app:layout_constraintTop_toBottomOf="@+id/edit_Meal" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_test"
-        android:layout_width="match_parent"
-        android:layout_height="675dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+        android:layout_width="406dp"
+        android:layout_height="417dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_nav_menu"
-        android:layout_gravity="bottom"/>
-</LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9233926" />
+
+    <EditText
+        android:id="@+id/edit_Meal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+       android:hint="@string/meal"
+        app:layout_constraintStart_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/search_Meal_btn"
+        android:layout_width="124dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:text="Search"
+        android:textSize="12sp"
+        app:icon="@drawable/search_24"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_Meal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edit_Meal"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/edit_Min"
+        android:layout_width="102dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="@string/min_calories"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_Max"
+        app:layout_constraintStart_toStartOf="@+id/edit_Meal"
+        app:layout_constraintTop_toTopOf="@+id/edit_Max"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2366621" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.0729927" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
