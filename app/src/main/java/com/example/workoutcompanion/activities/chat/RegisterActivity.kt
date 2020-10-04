@@ -160,7 +160,7 @@ class RegisterActivity : AppCompatActivity() {
 }
 @Parcelize
 class User(val uid: String, val username:String, val profileImag:String,val email:String,
-           val Age:String,val Gender:String,val weight:String,val height:String,val phone:String):
+           val age:String,val gender:String,val weight:String,val height:String,val phone:String):
     Parcelable{
     constructor() : this(
         "", "", "","","","",

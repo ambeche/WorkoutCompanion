@@ -83,6 +83,12 @@
     <string name="content_description_walk">starts counting the user\'s steps as he/she walks</string>
     <string name="sign_out">Sign Out</string>
     <string name="music">Music</string>
+    <string name="usernamE">Username</string>
+    <string name="phone_numbeR">Phone Number</string>
+    <string name="agE">Age</string>
+    <string name="heighT">Height</string>
+    <string name="textview">TextView</string>
+
 
 
 </resources>

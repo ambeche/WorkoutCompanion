@@ -85,6 +85,7 @@ class MusicActivity : AppCompatActivity() {
         val songFinder = SongFinder(contentResolver)
         songFinder.prepare()
         val songs = songFinder.allSongs
+
         // Play_btn.isEnabled = true
         //Go_btn.isEnabled = true
 
@@ -96,14 +97,15 @@ class MusicActivity : AppCompatActivity() {
 
     }
 
-    fun playRandom(){
+    fun playRandom() {
 //println(number)
-        if (createPlayer()?.count()!! == 0){
-            Toast.makeText(this,"Sorry no Music Found in your storage", Toast.LENGTH_SHORT).show()
-        }
+        Log.d("Songs!", "${createPlayer()?.count()}")
+        if (createPlayer()?.count()!! != 0) {
+
+
         var randomNum = (0..createPlayer()?.count()!! - 1).shuffled().first()
         createPlayer()?.shuffle()
-        Log.d("size","$randomNum")
+        Log.d("size", "$randomNum")
         println(number)
         println("GGG  ${createPlayer()}")
 
@@ -112,7 +114,7 @@ class MusicActivity : AppCompatActivity() {
 
         mediaPlayer?.reset()
         if (song != null) {
-            mediaPlayer = MediaPlayer.create(ctx,song.uri)
+            mediaPlayer = MediaPlayer.create(ctx, song.uri)
 
             mediaPlayer?.setOnCompletionListener {
                 Play_btn?.imageResource = R.drawable.ic_baseline_play_arrow_24
@@ -130,16 +132,19 @@ class MusicActivity : AppCompatActivity() {
             playButton?.imageResource = R.drawable.ic_baseline_pause_24
 
 
+        } else {
 
 
-
-        }else {
-            Toast.makeText(this,"NoSong", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "NoSong", Toast.LENGTH_SHORT).show()
         }
 
         Play_btn.isEnabled = true
         Play_btn?.imageResource = R.drawable.ic_baseline_pause_24
         album_Art1.playAnimation()
+    } else {
+            println(",,,,,${createPlayer()?.count()}")
+            Toast.makeText(this, "Sorry no Music Found in your storage", Toast.LENGTH_SHORT).show()
+        }
 
     }
 

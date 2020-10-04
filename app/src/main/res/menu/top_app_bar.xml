@@ -14,10 +14,11 @@
         android:title="@string/music"
         app:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/menu_sign_out"
+    <item
+        android:id="@+id/menu_profile"
+        android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/sign_out"
-        android:icon="@drawable/icon_signout"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
 
 </menu>

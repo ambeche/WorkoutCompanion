@@ -20,6 +20,7 @@ import com.example.workoutcompanion.activities.home.StepCounterService.Companion
 import com.example.workoutcompanion.activities.home.StepCounterService.Companion.PREF
 import com.example.workoutcompanion.activities.home.StepCounterService.Companion.STEPS
 import com.example.workoutcompanion.activities.home.StepCounterService.Companion.STEP_COUNT_UPDATE
+import com.example.workoutcompanion.activities.profile.ProfileActivity
 import com.example.workoutcompanion.model.WorkoutCompanionViewModel
 import com.example.workoutcompanion.model.roomdb.StepCounts
 import com.facebook.stetho.Stetho
@@ -74,6 +75,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         fetchCurrentUser()
+
         verifyuserIsLogrdIn()
 
         // set bottom navigation bar
@@ -144,6 +146,7 @@ class MainActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 currentUser = p0.getValue(User::class.java)
                 Log.d("LatestMessages", "Current user ${currentUser?.username}")
+                Log.d("User222","${currentUser?.age}..${currentUser?.gender!!}")
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -164,10 +167,8 @@ class MainActivity : AppCompatActivity() {
     private fun handleActionBarClicks() {
        topAppBar.setOnMenuItemClickListener { menuItem ->
            when (menuItem.itemId) {
-               R.id.menu_sign_out -> {
-                   FirebaseAuth.getInstance().signOut()
-                   val intent = Intent(this, RegisterActivity::class.java)
-                   intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+               R.id.menu_profile -> {
+                   val intent = Intent(this, ProfileActivity::class.java)
                    startActivity(intent)
                    true
                }
