@@ -52,23 +52,28 @@ class StepsBarChartFragment : Fragment() {
                 valueTextSize = 12f
                 barShadowColor = getColor(R.color.colorSecondaryDark)
                 barBorderColor = getColor(R.color.colorPrimaryLight)
-                valueFormatter = IndexAxisValueFormatter(labels)
 
             }
-            if (barEntries.size != 0){
+            if (barEntries.isNotEmpty() && labels.isNotEmpty()){
                 fragLayout.vStepsBarChart.apply{
                     xAxis.apply {
-                        setCenterAxisLabels(true)
+                        //setCenterAxisLabels(true)
                         setDrawValueAboveBar(true)
-                        setDrawLabels(true)
+                        isGranularityEnabled = true
+                        axisLeft.isEnabled = false
+                        axisRight.isEnabled = false
+                        setDrawGridLines(false)
+                        xAxis.position = XAxis.XAxisPosition.BOTTOM
+                        valueFormatter = IndexAxisValueFormatter(labels)
                     }
                     contentDescription = getString(R.string.daily_step_counts)
 
                     description.apply {
                         text = getString(R.string.daily_step_counts)
                         textSize = 16f
+                        //setPosition(800f,1060f)
                     }
-                    animateXY(3000,6000)
+                    //animateXY(1000,1000)
                     setFitBars(true)
 
                     data = BarData(barDataSet)

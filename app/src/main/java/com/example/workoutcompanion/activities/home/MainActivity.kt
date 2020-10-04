@@ -6,16 +6,14 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.example.workoutcompanion.AppHelperFunctions
 import com.example.workoutcompanion.BottomNavListener
 import com.example.workoutcompanion.R
 import com.example.workoutcompanion.activities.MusicActivity
-import com.example.workoutcompanion.activities.chat.NewMessageActivity
 import com.example.workoutcompanion.activities.chat.RegisterActivity
 import com.example.workoutcompanion.activities.chat.User
 import com.example.workoutcompanion.activities.home.StepCounterService.Companion.DISTANCE_METER
@@ -75,7 +73,6 @@ class MainActivity : AppCompatActivity() {
                 requestPermissions(arrayOf(Manifest.permission.ACTIVITY_RECOGNITION), 2)
             }
         }
-
         fetchCurrentUser()
         verifyuserIsLogrdIn()
 
@@ -86,6 +83,12 @@ class MainActivity : AppCompatActivity() {
                 BottomNavListener(this@MainActivity, MainActivity::class.java )
             )
         }
+        handleActionBarClicks() // action bar navigation handler
+        topAppBar?.apply {
+            setLogo(R.drawable.icon_logo)
+
+        }
+
         // loads charts on home screen
         supportFragmentManager
             .beginTransaction()
@@ -100,21 +103,18 @@ class MainActivity : AppCompatActivity() {
             if (text == getText(R.string.number_of_steps))
             // verify and loads step counts from preferences
                 text = sharedPref.getFloat(stepService.todayDate, 0f).toInt().toString()
-
+            setOnClickListener {  startService(this@MainActivity) }
             setOnLongClickListener {
                 stopService(this@MainActivity)
                 true
             }
         }
         updateCountInfo(tvDistance, stepService.dateForDistance, R.string.distance_km)
-
-
     }
 
     override fun onStart() {
         super.onStart()
         registerReceiver(stepsReceiver, IntentFilter(STEP_COUNT_UPDATE))
-        startService(this)
         super.onStart()
     }
 
@@ -127,8 +127,9 @@ class MainActivity : AppCompatActivity() {
         val startIntent = Intent(context, StepCounterService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)  {
             context.startForegroundService(startIntent)
-
         }else context.startService(startIntent)
+
+        AppHelperFunctions().toast(this, getString(R.string.counter_started))
     }
 
     private fun stopService(context: Context) {
@@ -160,31 +161,34 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.music_btn -> {
-                val intent = Intent(this, MusicActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.menu_sign_out -> {
-                FirebaseAuth.getInstance().signOut()
-                val intent = Intent(this, RegisterActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
-            }
-        }
+    private fun handleActionBarClicks() {
+       topAppBar.setOnMenuItemClickListener { menuItem ->
+           when (menuItem.itemId) {
+               R.id.menu_sign_out -> {
+                   FirebaseAuth.getInstance().signOut()
+                   val intent = Intent(this, RegisterActivity::class.java)
+                   intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                   startActivity(intent)
+                   true
+               }
+               R.id.music_btn -> {
+                   val intent = Intent(this, MusicActivity::class.java)
+                   startActivity(intent)
+                   true
+               }
+               R.id.walk -> {
+                   startService(this@MainActivity)
+                   true
+               }
+               else -> false
+           }
 
-        return super.onOptionsItemSelected(item)
-    }
-
-    override  fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
-        menuInflater.inflate(R.menu.nav_menu,menu)
-        return super.onCreateOptionsMenu(menu)
-    }
+       }
+   }
 
     private fun updateCountInfo(tv: TextView, txt:String, string: Int){
         if (tv.text == getText(string))
             tv.text = getString(string, sharedPref.getString(txt,"0"))
     }
+
 }

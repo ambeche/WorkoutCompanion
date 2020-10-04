@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/walk"
+        android:icon="@drawable/icon_physical_activity_walk"
+        android:title="@string/start_walking"
+        android:contentDescription="@string/content_description_walk"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/music_btn"
+        android:icon="@drawable/icon_music"
+        android:title="@string/music"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/menu_sign_out"
+        android:title="@string/sign_out"
+        android:icon="@drawable/icon_signout"
+        app:showAsAction="ifRoom"/>
+
+
+</menu>

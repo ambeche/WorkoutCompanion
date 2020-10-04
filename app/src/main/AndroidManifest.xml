@@ -27,18 +27,20 @@
             android:name=".activities.home.StepCounterService"
             android:enabled="true"
             android:exported="false" />
-
-        <activity android:name=".activities.routines.RoutinesActivity" />
-        <activity android:name=".activities.diet.ResultOfDiet1" />
-        <activity android:name=".activities.diet.Nutrition" />
-        <activity android:name=".activities.diet.RecipeInfoSpesific" />
-        <activity android:name=".activities.home.MainActivity">
+        <activity
+            android:name=".activities.home.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.routines.RoutinesActivity"/>
+
+        <activity android:name=".activities.diet.ResultOfDiet1"/>
+        <activity android:name=".activities.diet.Nutrition" />
+        <activity android:name=".activities.diet.RecipeInfoSpesific" />
         <activity android:name=".activities.chat.RegisterActivity" />
         <activity android:name=".activities.chat.LoginActivity" />
         <activity android:name=".activities.chat.NewMessageActivity">
