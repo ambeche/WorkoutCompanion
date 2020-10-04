@@ -75,6 +75,14 @@
     <string name="paleo_diet_image">Paleo diet image</string>
     <string name="primal_diet_image">Primal diet image</string>
     <string name="whole_30_diet_image">Whole 30 diet image</string>
+    <string name="counter_started">Step Counter Started!</string>
+    <string name="page_title">WCompanion</string>
+    <string name="more">more</string>
+    <string name="content_description_more">more actions; play music, stop counter and start counter</string>
+    <string name="start_walking">Start Working</string>
+    <string name="content_description_walk">starts counting the user\'s steps as he/she walks</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="music">Music</string>
 
 
 </resources>
