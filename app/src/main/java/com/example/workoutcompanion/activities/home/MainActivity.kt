@@ -6,9 +6,11 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.workoutcompanion.AppHelperFunctions
 import com.example.workoutcompanion.BottomNavListener
@@ -35,15 +37,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appViewModel: WorkoutCompanionViewModel
     private lateinit var sharedPref: SharedPreferences
     private val stepService = StepCounterService()
+
     companion object {
         var currentUser: User? = null
     }
+
     // receives steps broadcast from StepCounter service
-    private val stepsReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            val steps = intent?.getIntExtra(STEPS, 0).toString()
-            val stepsFromPref = sharedPref.getFloat(stepService.todayDate, 0f).toInt().toString()
-            tvSteps.text = stepsFromPref
+    private val stepsReceiver: StepsReceiver = object : StepsReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val steps = intent.getIntExtra(STEPS, 0).toString()
+            val stepsFromPref = sharedPref.getFloat(stepService.todayDate, 0f)
+            tvSteps.text = stepsFromPref.toInt().toString()
             // steps progress bar set up
             progressBar.apply {
                 setProgressWithAnimation(steps.toFloat(), 2000)
@@ -51,13 +55,27 @@ class MainActivity : AppCompatActivity() {
             }
             Log.d("stepsUI", steps)
 
-            val distance = intent?.getDoubleExtra(DISTANCE_METER, 0.0).toString()
+            val distance = intent.getDoubleExtra(DISTANCE_METER, 0.0).toString()
             tvDistance.text = getString(R.string.distance_km, distance)
+
+            val acc = sharedPref.getString(stepService.dateForAcc, "0")
+            tvAcceleration.text = getString(R.string.walking_acc, acc)
+
+            val calories = sharedPref.getFloat(stepService.dateForCalories, 0f)
+            tvCalories.text = getString(R.string.calories_cal, calories.toString())
 
             // persists the day's count to db and stops counter service
             val owner = "tamanji.ambe@gmail.com"
             val stepsToDB = StepCounts (stepService.todayDate, owner,
-                sharedPref.getFloat(stepService.todayDate, 0f))
+                stepsFromPref, calories)
+            appViewModel.addStepsToDb(StepCounts("Sep 26, 2020", owner, 500f, 300f))
+            appViewModel.addStepsToDb(StepCounts("Sep 27, 2020", owner, 1000f, 700f))
+            appViewModel.addStepsToDb(StepCounts("Sep 29, 2020", owner, 2000f, 1200f))
+            appViewModel.addStepsToDb(StepCounts("Sep 30, 2020", owner, 1500f, 800f))
+            appViewModel.addStepsToDb(StepCounts("Oct 1, 2020", owner, 800f, 400f))
+            appViewModel.addStepsToDb(StepCounts("Oct 2, 2020", owner, 3000f, 1400f))
+            appViewModel.addStepsToDb(StepCounts("Oct 3, 2020", owner, 3500f, 1600f))
+            appViewModel.addStepsToDb(StepCounts("Oct 4, 2020", owner, 1000f, 800f))
 
             appViewModel.addStepsToDb(stepsToDB)
         }
@@ -98,6 +116,9 @@ class MainActivity : AppCompatActivity() {
                 getString(R.string.tag_barchart))
             .commit()
 
+        tvCalories.setOnClickListener(OnclickListener())
+
+
         appViewModel = ViewModelProvider(this).get(WorkoutCompanionViewModel::class.java)
         sharedPref = getSharedPreferences(PREF, Context.MODE_PRIVATE)
 
@@ -105,13 +126,14 @@ class MainActivity : AppCompatActivity() {
             if (text == getText(R.string.number_of_steps))
             // verify and loads step counts from preferences
                 text = sharedPref.getFloat(stepService.todayDate, 0f).toInt().toString()
-            setOnClickListener {  startService(this@MainActivity) }
+            setOnClickListener(OnclickListener())
             setOnLongClickListener {
                 stopService(this@MainActivity)
                 true
             }
         }
         updateCountInfo(tvDistance, stepService.dateForDistance, R.string.distance_km)
+        updateCountInfo(tvCalories, stepService.dateForCalories, R.string.calories_cal)
     }
 
     override fun onStart() {
@@ -146,7 +168,7 @@ class MainActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 currentUser = p0.getValue(User::class.java)
                 Log.d("LatestMessages", "Current user ${currentUser?.username}")
-                Log.d("User222","${currentUser?.age}..${currentUser?.gender!!}")
+                //Log.d("User222","${currentUser?.age}..${currentUser?.gender!!}")
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -177,8 +199,11 @@ class MainActivity : AppCompatActivity() {
                    startActivity(intent)
                    true
                }
-               R.id.walk -> {
-                   startService(this@MainActivity)
+               R.id.start_walk -> {startService(this@MainActivity)
+                   true
+               }
+               R.id.stop_walk -> {
+                   stopService(this@MainActivity)
                    true
                }
                else -> false
@@ -186,10 +211,30 @@ class MainActivity : AppCompatActivity() {
 
        }
    }
+    private inner class  OnclickListener : View.OnClickListener {
+        override fun onClick(viewId: View?) {
+            when (viewId?.id) {
+                R.id.tvCalories -> {loadFragment(
+                    CaloriesPieChartFragment.newInstance(), R.string.pieChart)
+                }
+
+                R.id.tvSteps -> loadFragment(
+                    StepsBarChartFragment.newInstance(), R.string.tag_barchart)
+            }
+        }
+
+    }
+    private fun loadFragment ( frag: Fragment, txt: Int ) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragments_container_home, frag,
+                getString(txt))
+            .addToBackStack(null)
+            .commit()
+    }
 
     private fun updateCountInfo(tv: TextView, txt:String, string: Int){
         if (tv.text == getText(string))
-            tv.text = getString(string, sharedPref.getString(txt,"0"))
+            tv.text = getString(string, sharedPref.getFloat(txt, 0.0f).toString())
     }
 
 }

@@ -43,14 +43,14 @@
     <string name="notice_text">Current number of steps counted %1d</string>
     <string name="number_of_steps">steps</string>
     <string name="distance_km">%1s km</string>
-    <string name="calories_cal">000 kcal</string>
+    <string name="calories_cal">%1s cal</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="steps_label">Steps</string>
     <string name="tag_barchart">steps bar chart</string>
     <string name="daily_step_counts">Daily Step Counts</string>
     <string name="step_goals">/1500 steps</string>
-    <string name="running_speed">0.0 m^2</string>
+    <string name="walking_acc">%1s m/s^2</string>
     <string name="login">Login</string>
     <string name="send">Send</string>
     <string name="minimum_calories">minimum calories</string>
@@ -88,7 +88,13 @@
     <string name="agE">Age</string>
     <string name="heighT">Height</string>
     <string name="textview">TextView</string>
-
+    <string name="pieChart">pieChart</string>
+    <string name="daily_cal_burned_walking">Daily calories burned during walk exercise</string>
+    <string name="target_cal">Target\n <b>600</b> kcal</string>
+    <string name="content_description_stop_walk">end physical activity and saves your step counts for the day</string>
+    <string name="stop">Stops </string>
+    <string name="start">Start</string>
+    <string name="content_description_Start_walk">starts the step counter service</string>
 
 
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -19,7 +20,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -87,14 +88,16 @@
                 style="@style/stepCounterTextView"
                 android:text="@string/distance_km" />
             <TextView
-                android:id="@+id/tvSpeed"
+                android:id="@+id/tvAcceleration"
                 style="@style/stepCounterTextView"
-                android:text="@string/running_speed" />
+                android:text="@string/walking_acc" />
 
             <TextView
                 android:id="@+id/tvCalories"
                 style="@style/stepCounterTextView"
                 android:layout_marginBottom="0dp"
+                android:focusable="auto"
+                android:focusableInTouchMode="true"
                 android:text="@string/calories_cal" />
 
         </LinearLayout>
