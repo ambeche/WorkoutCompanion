@@ -23,6 +23,7 @@ import com.example.workoutcompanion.activities.home.StepCounterService.Companion
 import com.example.workoutcompanion.activities.home.StepCounterService.Companion.STEPS
 import com.example.workoutcompanion.activities.home.StepCounterService.Companion.STEP_COUNT_UPDATE
 import com.example.workoutcompanion.activities.profile.ProfileActivity
+import com.example.workoutcompanion.interfaces.OnLoadFragment
 import com.example.workoutcompanion.model.WorkoutCompanionViewModel
 import com.example.workoutcompanion.model.roomdb.StepCounts
 import com.facebook.stetho.Stetho
@@ -33,7 +34,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnLoadFragment {
     private lateinit var appViewModel: WorkoutCompanionViewModel
     private lateinit var sharedPref: SharedPreferences
     private val stepService = StepCounterService()
@@ -206,6 +207,10 @@ class MainActivity : AppCompatActivity() {
                    stopService(this@MainActivity)
                    true
                }
+               R.id.heartRate -> {
+                   loadFragment(BLEHeartRateFragment.newInstance(), R.string.tag_hrt)
+                   true
+               }
                else -> false
            }
 
@@ -235,6 +240,11 @@ class MainActivity : AppCompatActivity() {
     private fun updateCountInfo(tv: TextView, txt:String, string: Int){
         if (tv.text == getText(string))
             tv.text = getString(string, sharedPref.getFloat(txt, 0.0f).toString())
+    }
+
+    override fun onLoadFragment() {
+        loadFragment(
+            StepsBarChartFragment.newInstance(), R.string.tag_barchart)
     }
 
 }

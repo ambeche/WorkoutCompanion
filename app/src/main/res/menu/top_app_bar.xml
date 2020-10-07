@@ -19,6 +19,11 @@
                 android:contentDescription="@string/content_description_stop_walk"
                 app:showAsAction="ifRoom" />
 
+            <item android:id="@+id/heartRate"
+                android:title="@string/heart_rate"
+                android:contentDescription="@string/content_description_hrt"
+                app:showAsAction="ifRoom" />
+
         </menu>
     </item>
 
