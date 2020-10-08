@@ -85,7 +85,7 @@ class StepsBarChartFragment : Fragment() {
                     description.apply {
                         text = getString(R.string.daily_step_counts)
                         textSize = 16f
-                        setPosition(700f, 1070f)
+                        setPosition(700f, 1065f)
                     }
                     //animateXY(1000,1000)
                     setFitBars(true)

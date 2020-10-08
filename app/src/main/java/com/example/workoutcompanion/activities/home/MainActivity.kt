@@ -133,8 +133,11 @@ class MainActivity : AppCompatActivity(), OnLoadFragment {
                 true
             }
         }
+        // loads values from shared preference when steps service is not started
         updateCountInfo(tvDistance, stepService.dateForDistance, R.string.distance_km)
         updateCountInfo(tvCalories, stepService.dateForCalories, R.string.calories_cal)
+        val acc = sharedPref.getString(stepService.dateForAcc, "0")
+        tvAcceleration.text = getString(R.string.walking_acc, acc)
     }
 
     override fun onStart() {
@@ -169,7 +172,6 @@ class MainActivity : AppCompatActivity(), OnLoadFragment {
             override fun onDataChange(p0: DataSnapshot) {
                 currentUser = p0.getValue(User::class.java)
                 Log.d("LatestMessages", "Current user ${currentUser?.username}")
-                //Log.d("User222","${currentUser?.age}..${currentUser?.gender!!}")
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -233,7 +235,6 @@ class MainActivity : AppCompatActivity(), OnLoadFragment {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragments_container_home, frag,
                 getString(txt))
-            .addToBackStack(null)
             .commit()
     }
 

@@ -12,7 +12,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 
-class BleListAdapter(private val context: Context?) : BaseAdapter() {
+class BleListAdapter(context: Context?) : BaseAdapter() {
     private var bleList = ArrayList<ScanResult>()
     private val inflater: LayoutInflater
             = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -39,18 +39,10 @@ class BleListAdapter(private val context: Context?) : BaseAdapter() {
         val tvMacAddress = rowView.findViewById<TextView>(R.id.tvAddress)
         val bleItem = bleList[pos]
 
-        if (!bleItem.isConnectable) {
-            updateTextColor(tvMacAddress, tvName)
-            rowView.isEnabled = false
-        }
         tvName.text = bleItem.device?.name ?: ""
         tvMacAddress.text = bleItem.device?.address
 
         return rowView
-    }
-
-    override fun isEnabled(position: Int): Boolean {
-        return true
     }
 
     fun setAdapter (scanResult:ScanResult) {

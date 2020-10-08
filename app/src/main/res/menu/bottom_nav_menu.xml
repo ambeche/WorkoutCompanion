@@ -11,11 +11,6 @@
         android:icon="@drawable/icon_diets"
         android:title="@string/text_label_diets"/>
     <item
-        android:id="@+id/routines"
-        android:enabled="true"
-        android:icon="@drawable/icon_routines"
-        android:title="@string/text_label_routines"/>
-    <item
         android:id="@+id/chat"
         android:enabled="true"
         android:icon="@drawable/icon_chat"

@@ -18,3 +18,18 @@ interface StepCountsDao {
     @Query("UPDATE steps SET value = :newSteps WHERE date = :date")
     fun updateSteps(date: String, newSteps: Float): Int
 }
+
+@Dao
+interface HeartRateDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(heartRate: HeartRate): Long
+
+    @Query("SELECT * FROM hrt")
+    fun getAllHrt() : LiveData<List<HeartRate>>
+
+    @Query("DELETE FROM hrt")
+    fun deleteAll ()
+}
+
+

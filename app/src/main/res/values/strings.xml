@@ -95,13 +95,19 @@
     <string name="stop">Stops </string>
     <string name="start">Start</string>
     <string name="content_description_Start_walk">starts the step counter service</string>
-    <string name="cancel">cancel</string>
+    <string name="cancel">Cancel</string>
     <string name="ok">connect</string>
     <string name="heart_rate">Heart Rate</string>
     <string name="content_description_hrt">connect your deve to your external heart rate device to monitor your heart rate</string>
     <string name="tag_hrt">hrt</string>
-    <string name="sanned">Scanned Heart Rate Sensors</string>
+    <string name="sanned">Scanned Heart Rate Sensors, Press To Select Device</string>
     <string name="hrt_mph">0.0 mph</string>
+    <string name="is_matched">is a match</string>
+    <string name="ble_disconnected">Device disconnected from HRT monitor!</string>
+    <string name="connecting">Connecting...</string>
+    <string name="connected">Connected to %1s</string>
+    <string name="hrt_bpm">Heart Rate</string>
+    <string name="label_hrt">Heart Rate, bpm</string>
 
 
 </resources>
