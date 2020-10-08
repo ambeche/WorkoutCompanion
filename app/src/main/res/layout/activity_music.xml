@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E1D3D3"
     tools:context=".activities.MusicActivity">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -11,6 +12,7 @@
         android:layout_width="351dp"
         android:layout_height="310dp"
         android:layout_marginTop="48dp"
+        android:background="#E1D3D3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,12 +23,12 @@
 
     <TextView
         android:id="@+id/song_title"
-        android:layout_width="362dp"
-        android:layout_height="64dp"
+        android:layout_width="365dp"
+        android:layout_height="77dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="36dp"
-        android:text="TextView"
-        android:textSize="18sp"
+        android:textColor="#050303"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/album_Art1"
         app:layout_constraintStart_toStartOf="@+id/album_Art1"
         app:layout_constraintTop_toBottomOf="@+id/album_Art1" />
@@ -37,7 +39,7 @@
         android:layout_height="35dp"
         android:layout_marginStart="132dp"
         android:layout_marginTop="20dp"
-        android:text="TextView"
+        android:textColor="#050303"
         app:layout_constraintStart_toStartOf="@+id/song_title"
         app:layout_constraintTop_toBottomOf="@+id/song_title" />
 
@@ -46,14 +48,14 @@
         android:layout_width="119dp"
         android:layout_height="52dp"
         android:layout_marginEnd="28dp"
-        android:layout_marginBottom="16dp"
 
-        android:background="#986F6F"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/border_music"
         android:src="@drawable/ic_baseline_shuffle_24"
         android:text="Button"
+        android:tint="@color/design_default_color_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Play_btn" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageButton
         android:id="@+id/Play_btn"
@@ -61,7 +63,8 @@
         android:layout_height="52dp"
         android:layout_marginStart="44dp"
         android:layout_marginBottom="16dp"
-        android:background="#986F6F"
+        android:background="@drawable/border_music"
+        android:tint="@color/design_default_color_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_baseline_play_arrow_24" />

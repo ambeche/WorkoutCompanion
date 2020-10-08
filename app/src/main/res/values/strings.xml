@@ -54,8 +54,8 @@
     <string name="login">Login</string>
     <string name="send">Send</string>
     <string name="minimum_calories">minimum calories</string>
-    <string name="max_calories">max calories</string>
-    <string name="min_calories">min calories</string>
+    <string name="max_calories">max calories*</string>
+    <string name="min_calories">min calories*</string>
     <string name="meal">Meal</string>
     <string name="gluten_free">Gluten-free</string>
     <string name="vegan">Vegan</string>
@@ -88,7 +88,8 @@
     <string name="agE">Age</string>
     <string name="heighT">Height</string>
     <string name="textview">TextView</string>
-
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

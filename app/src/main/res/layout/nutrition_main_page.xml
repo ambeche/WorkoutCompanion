@@ -94,8 +94,8 @@
                             android:layout_width="140dp"
                             android:layout_height="80dp"
                             android:layout_marginStart="0dp"
-                            android:src="@drawable/gluten_no"
-                            android:contentDescription="@string/gluten_free_image" />
+                            android:contentDescription="@string/gluten_free_image"
+                            android:src="@drawable/gluten_no" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -124,7 +124,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@android:color/transparent"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp">
@@ -133,8 +132,8 @@
                             android:layout_width="140dp"
                             android:layout_height="80dp"
                             android:layout_marginStart="0dp"
-                            android:src="@drawable/veg"
-                            android:contentDescription="@string/vegan_image" />
+                            android:contentDescription="@string/vegan_image"
+                            android:src="@drawable/veg" />
 
                         <TextView
                             android:layout_width="wrap_content"

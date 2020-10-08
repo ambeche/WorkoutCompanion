@@ -2,17 +2,22 @@ package com.example.workoutcompanion.activities.chat
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutcompanion.R
 import com.example.workoutcompanion.activities.home.MainActivity
@@ -34,10 +39,14 @@ import kotlinx.android.synthetic.main.chat_to_row.view.imageview_chat_to_row
 import kotlinx.android.synthetic.main.image_from_chat.view.*
 import kotlinx.android.synthetic.main.image_to_row.view.*
 import kotlinx.coroutines.*
+import java.io.File
 import java.util.*
 import kotlin.concurrent.schedule
 
 class ChatLogActivity : AppCompatActivity() {
+
+    val REQUEST_IMAGE_CAPTURE = 30
+    lateinit var mCurrentPhotoPath:String
 
     val adapter = GroupAdapter<ViewHolder>()
 
@@ -47,13 +56,39 @@ class ChatLogActivity : AppCompatActivity() {
 
     var sharableimg:Bitmap? = null
 
+    var CapturedPhoto:Uri? = null
+
     var imagetobeshared :String? = null
+
+    var uri_fromCaptured:Uri? = null
+
+    var delay_to_send:Int? = 3000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_log)
 
         //supportActionBar?.title = "Chat Log"
+
+        if ((Build.VERSION.SDK_INT>=23 && ContextCompat.checkSelfPermission(this,android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),0)
+        }
+
+        val fileName = "my_photo_wc"
+        val imgPath = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        var imageFile: File = File.createTempFile(fileName, ".jpg", imgPath)
+        val photoURI: Uri = FileProvider.getUriForFile(this,
+            "com.example.workoutcompanion.fileprovider",
+            imageFile)
+
+        uri_fromCaptured = photoURI
+
+        mCurrentPhotoPath = imageFile!!.absolutePath
+
+        val ip = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        Log.d("FilesDire","$ip")
+
+        val myIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
         recyclerview_chat_log.layoutManager = LinearLayoutManager(this)
         toUser = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
@@ -75,7 +110,11 @@ class ChatLogActivity : AppCompatActivity() {
 
             Log.d("SendMessage","Attempt to send Message")
 
-            performSendMessage()
+            if(edittext_chat_log.text.isNotEmpty()){
+                performSendMessage()
+            }
+
+
 
 
         }
@@ -84,6 +123,15 @@ class ChatLogActivity : AppCompatActivity() {
             intent.type ="image/*"
             startActivityForResult(intent,12)
             edittext_chat_log.isEnabled = false
+        }
+
+        Camera_btn.setOnClickListener {
+            if (myIntent.resolveActivity(packageManager) != null) {
+                myIntent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                myIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+
+            }
+            startActivityForResult(myIntent, REQUEST_IMAGE_CAPTURE)
         }
 
     }
@@ -142,7 +190,7 @@ class ChatLogActivity : AppCompatActivity() {
 
 
         ref.putFile(selectedPhoto!!).addOnSuccessListener {
-            Log.d("Register","Succefuly iploaded image ${it.metadata?.path}")
+            Log.d("Chat","Succefuly iploaded image ${it.metadata?.path}")
             //imagetobeshared = it.metadata?.path
 
             ref.downloadUrl.addOnSuccessListener {
@@ -157,7 +205,8 @@ class ChatLogActivity : AppCompatActivity() {
             Log.d("Register","Failed to select photo")
         }
 
-        Timer("SettingUp", false).schedule(3000) {
+        //if(uri == selectedPhoto) delay_to_send = 3000
+        Timer("SettingUp", false).schedule(5900) {
 
             val reference = FirebaseDatabase.getInstance().getReference("/Image-user-messages/${fromId}/${toId}").push()
 
@@ -281,6 +330,7 @@ class ChatLogActivity : AppCompatActivity() {
             Log.d("UploadImagshare", "pic was selected")
 
             selectedPhoto = data.data
+            Log.d("FF", selectedPhoto.toString())
 
 
             val uri_final = getCapturedImage(selectedPhoto)
@@ -293,9 +343,28 @@ class ChatLogActivity : AppCompatActivity() {
             //  button_Img.setBackgroundDrawable(BITMAP)
             //selectPhotoImageview.setImageBitmap(uri_final)
 
-            performImgSharing()
+            if (uri_final != null) {
+                performImgSharing()
+            }
 
 
+        }else if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK && data != null && uri_fromCaptured!= null){
+            val imageBitmap = BitmapFactory.decodeFile(mCurrentPhotoPath)
+
+
+            selectedPhoto = uri_fromCaptured
+            Log.d("FF", selectedPhoto.toString())
+
+            //val uri12 = getCapturedImage(selectedPhoto)
+
+
+                performImgSharing()
+            //content://com.google.android.apps.photos.contentprovider/-1/1/
+            // content%3A%2F%2Fmedia%2Fexternal%2Fimages%2Fmedia%2F55/ORIGINAL/NONE/image%2Fpng/1358640755
+
+
+        }else {
+            println("DDDDDDDD")
         }
     }
 
@@ -308,7 +377,7 @@ class ChatLogActivity : AppCompatActivity() {
         val toId = user?.uid
 
 
-        if (fromId == null || sharableimg == null) return
+        if (fromId == null) return
 
         uploadImageToFirebasestorage()
 

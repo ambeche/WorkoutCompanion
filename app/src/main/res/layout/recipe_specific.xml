@@ -5,14 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DFD7C1"
     android:orientation="vertical">
 
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="372dp"
-        android:layout_height="168dp"
+        android:layout_width="379dp"
+        android:layout_height="165dp"
         android:layout_marginTop="8dp"
+
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="@+id/card_front"
         app:layout_constraintStart_toStartOf="@+id/card_front"
@@ -35,23 +37,29 @@
                 android:layout_width="178dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal"
-                android:background="@drawable/bodrer_linear">
+                android:background="@drawable/bodrer_linear"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/TextView22"
                     android:layout_width="72dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+
                     android:text="amount"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="49dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Daily Needs" />
+
+                    android:text="Daily Needs%"
+                    android:textSize="18sp"
+                    android:textStyle="italic" />
             </LinearLayout>
 
         </LinearLayout>
@@ -61,8 +69,8 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_margin="5dp"
-            android:orientation="horizontal"
-            android:background="@drawable/bodrer_linear">
+            android:background="@drawable/bodrer_linear"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView5"
@@ -70,7 +78,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/protein"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/textView_Protein"
@@ -93,8 +103,8 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_margin="5dp"
-            android:orientation="horizontal"
-            android:background="@drawable/bodrer_linear">
+            android:background="@drawable/bodrer_linear"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView6"
@@ -102,7 +112,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/fat"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/textView_Fat"
@@ -125,8 +137,8 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_margin="5dp"
-            android:orientation="horizontal"
-            android:background="@drawable/bodrer_linear">
+            android:background="@drawable/bodrer_linear"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView8"
@@ -134,7 +146,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/carbohydrates"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/textView_Carbohydrates"
@@ -184,8 +198,8 @@
 
     <Button
         android:id="@+id/flip_button"
-        android:layout_width="115dp"
-        android:layout_height="36dp"
+        android:layout_width="113dp"
+        android:layout_height="42dp"
         android:layout_marginTop="4dp"
         android:background="@color/design_default_color_background"
         android:text="Flip "
@@ -193,7 +207,7 @@
         android:textSize="15sp"
         app:icon="@drawable/ic_round_flip_camera_android_24"
         app:iconTint="#100F0F"
-        app:layout_constraintStart_toStartOf="@+id/card_front"
+        app:layout_constraintEnd_toEndOf="@+id/card_front"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -201,20 +215,19 @@
         android:layout_width="292dp"
         android:layout_height="36dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/bodrer_linear"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="@+id/card_front"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/card_front"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        android:background="@drawable/bodrer_linear">
+        app:layout_constraintTop_toBottomOf="@+id/textView10">
 
         <LinearLayout
             android:id="@+id/linear_cal"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_margin="5dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView14"
@@ -222,7 +235,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/total_calories"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/TextView_Calorie"
@@ -237,13 +252,15 @@
 
     <TextView
         android:id="@+id/textView10"
-        android:layout_width="99dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="197dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="32dp"
         android:text="@string/nutrition_informations"
         android:textAlignment="center"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
@@ -265,16 +282,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="127dp"
-        android:layout_height="49dp"
-        android:text="Take it"
-        app:icon="@drawable/ic_baseline_local_dining_24"
-        app:iconTint="#100F0F"
-        app:layout_constraintBottom_toBottomOf="@+id/flip_button"
-        app:layout_constraintEnd_toEndOf="@+id/card_front"
-        app:layout_constraintTop_toTopOf="@+id/flip_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

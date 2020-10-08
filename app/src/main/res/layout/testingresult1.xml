@@ -5,17 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/pixabay">
 
 
     <EditText
         android:id="@+id/edit_Max"
-        android:layout_width="101dp"
+        android:layout_width="121dp"
         android:layout_height="42dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/max_calories"
         android:inputType="number"
+        android:background="@drawable/border_testingresult1"
         app:layout_constraintEnd_toEndOf="@+id/edit_Meal"
         app:layout_constraintTop_toBottomOf="@+id/edit_Meal" />
 
@@ -24,7 +26,7 @@
 
         android:layout_width="406dp"
         android:layout_height="417dp"
-        android:background="@color/black"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
@@ -52,40 +54,41 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9233926" />
 
+
     <EditText
         android:id="@+id/edit_Meal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="243dp"
+        android:layout_height="52dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/border_testingresult1"
         android:ems="10"
+        android:hint="@string/meal"
         android:inputType="textPersonName"
-       android:hint="@string/meal"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <Button
         android:id="@+id/search_Meal_btn"
-        android:layout_width="124dp"
+        android:layout_width="121dp"
         android:layout_height="44dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:text="Search"
         android:textSize="12sp"
         app:icon="@drawable/search_24"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_Meal"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_Max"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edit_Meal"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/edit_Max" />
 
     <EditText
         android:id="@+id/edit_Min"
-        android:layout_width="102dp"
+        android:layout_width="113dp"
         android:layout_height="43dp"
         android:ems="10"
         android:hint="@string/min_calories"
         android:inputType="number"
+        android:background="@drawable/border_testingresult1"
         app:layout_constraintBottom_toBottomOf="@+id/edit_Max"
         app:layout_constraintStart_toStartOf="@+id/edit_Meal"
         app:layout_constraintTop_toTopOf="@+id/edit_Max"
@@ -103,6 +106,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.0729927" />
+        app:layout_constraintGuide_percent="0.04" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
