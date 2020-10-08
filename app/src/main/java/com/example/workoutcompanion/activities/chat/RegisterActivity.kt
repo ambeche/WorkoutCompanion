@@ -32,7 +32,7 @@ class RegisterActivity : AppCompatActivity() {
         // initialize dropdown menu for gender
         val gender = resources.getStringArray(R.array.gender)
         val dropDownMenuAdapter = ArrayAdapter(this, R.layout.list_item, gender)
-        (edit_Gender.editText as? AutoCompleteTextView)?.setAdapter(dropDownMenuAdapter)
+
 
         btn1.setOnClickListener {
             performRegister()
@@ -134,11 +134,9 @@ class RegisterActivity : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid
         val ref =  FirebaseDatabase.getInstance().getReference("/users/${uid}")
         val user = uid?.let { User(it, getInput(edit_Name), ProfileImgUrl, getInput(edit_Email),
-            getInput(edit_Age), getInput(edit_Gender), getInput(edit_Weight), getInput(edit_Height),
-            getInput(edit_Phone) ) }
+            "", "", "", "", "" ) }
 
-        clearTxt(edit_Age, edit_Email, edit_Gender, edit_Height, edit_Name, edit_Phone,
-            edit_Weight)
+        clearTxt(edit_Email, edit_Name)
 
         ref.setValue(user).addOnSuccessListener {
             Log.d("Register","Finally the user to firebase")
@@ -159,8 +157,8 @@ class RegisterActivity : AppCompatActivity() {
     }
 }
 @Parcelize
-class User(val uid: String, val username:String, val profileImag:String,val email:String,
-           val age:String,val gender:String,val weight:String,val height:String,val phone:String):
+class User(val uid: String, var username:String, val profileImag:String,val email:String,
+           var age:String,var gender:String,var weight:String,var height:String,var phone:String):
     Parcelable{
     constructor() : this(
         "", "", "","","","",

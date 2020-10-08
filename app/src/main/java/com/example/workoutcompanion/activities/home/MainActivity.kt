@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 currentUser = p0.getValue(User::class.java)
                 Log.d("LatestMessages", "Current user ${currentUser?.username}")
-                Log.d("User222","${currentUser?.age}..${currentUser?.gender!!}")
+                //Log.d("User222","${currentUser?.age!!}..${currentUser?.gender!!}")
             }
 
             override fun onCancelled(p0: DatabaseError) {

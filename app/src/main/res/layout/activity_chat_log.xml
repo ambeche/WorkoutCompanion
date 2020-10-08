@@ -9,27 +9,31 @@
 
     <EditText
         android:id="@+id/edittext_chat_log"
-        android:layout_width="258dp"
-        android:layout_height="49dp"
+        android:layout_width="203dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:background="@android:color/white"
         android:ems="10"
-        android:hint="Enter Message"
+        android:hint="Message ..."
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/send_button_chat_log"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/upload_Button" />
 
-    <Button
+    <ImageButton
         android:id="@+id/send_button_chat_log"
-        android:layout_width="78dp"
-        android:layout_height="46dp"
+        android:layout_width="68dp"
+        android:layout_height="41dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="8dp"
+        android:backgroundTint="#D1AE73"
+        android:src="@drawable/ic_baseline_send_24"
         android:text="@string/send"
         android:textColor="@android:color/white"
         android:textStyle="bold"
+        android:tint="#050709"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/edittext_chat_log" />
@@ -45,13 +49,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/upload_Button"
-        android:layout_width="62dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="61dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="68dp"
+        android:backgroundTint="#D1AE73"
+        android:src="@drawable/ic_baseline_image_24"
         android:text="Upload"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:tint="#130909"
+        app:layout_constraintBottom_toBottomOf="@+id/edittext_chat_log"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edittext_chat_log" />
+        app:layout_constraintTop_toTopOf="@+id/edittext_chat_log"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageButton
+        android:id="@+id/Camera_btn"
+        android:layout_width="49dp"
+        android:layout_height="41dp"
+        android:backgroundTint="#D1AE73"
+        android:tint="#151212"
+        app:layout_constraintBottom_toBottomOf="@+id/upload_Button"
+        app:layout_constraintEnd_toStartOf="@+id/upload_Button"
+        app:layout_constraintHorizontal_bias="0.368"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/upload_Button"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

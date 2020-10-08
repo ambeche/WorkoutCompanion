@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.example.workoutcompanion.R
 import com.progur.droidmelody.SongFinder
@@ -57,6 +58,7 @@ class MusicActivity : AppCompatActivity() {
 
         album_Art1.pauseAnimation()
         Play_btn.isEnabled = false
+        Play_btn.isVisible =false
 
         GlobalScope.launch(Dispatchers.Main)  {
 
@@ -73,6 +75,7 @@ class MusicActivity : AppCompatActivity() {
             playOrPause()
         }
         Go_btn.setOnClickListener {
+            Play_btn.isVisible = true
             playRandom()
         }
     }
