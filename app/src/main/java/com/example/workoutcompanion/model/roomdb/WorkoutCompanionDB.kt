@@ -5,10 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [(User::class), (StepCounts::class)], version = 1)
+@Database(entities = [(User::class), (StepCounts::class), (HeartRate::class)], version = 1)
 abstract class WorkoutCompanionDB: RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun stepCountsDao(): StepCountsDao
+    abstract fun heartRateDao(): HeartRateDao
     companion object {
 
         var dbInstance: WorkoutCompanionDB? = null

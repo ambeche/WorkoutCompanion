@@ -7,7 +7,25 @@
         android:icon="@drawable/icon_physical_activity_walk"
         android:title="@string/start_walking"
         android:contentDescription="@string/content_description_walk"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom">
+        <menu>
+            <item android:id="@+id/start_walk"
+                android:title="@string/start"
+                android:contentDescription="@string/content_description_Start_walk"
+                app:showAsAction="ifRoom" />
+
+            <item android:id="@+id/stop_walk"
+                android:title="@string/stop"
+                android:contentDescription="@string/content_description_stop_walk"
+                app:showAsAction="ifRoom" />
+
+            <item android:id="@+id/heartRate"
+                android:title="@string/heart_rate"
+                android:contentDescription="@string/content_description_hrt"
+                app:showAsAction="ifRoom" />
+
+        </menu>
+    </item>
 
     <item android:id="@+id/music_btn"
         android:icon="@drawable/icon_music"

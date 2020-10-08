@@ -9,6 +9,7 @@ data class StepCounts (
     @PrimaryKey val date: String,
     val owner: String,
     val value: Float,
+    val calories: Float,
 
     ) {
     override fun toString(): String = "$date $value"

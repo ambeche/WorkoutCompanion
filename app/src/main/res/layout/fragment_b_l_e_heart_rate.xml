@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.home.BLEHeartRateFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvHrt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textStyle="bold"
+            android:textColor="@color/textColorOnPrimary"
+            android:background="#8E24AA"
+            android:text="@string/hrt_mph"
+            android:gravity="center"
+
+            android:textSize="36sp"
+            android:layout_weight="1"/>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/vLineChart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6" />
+    </LinearLayout>
+
+
+</FrameLayout>
