@@ -62,12 +62,13 @@
                 android:layout_marginStart="22dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="22dp"
-                android:background="@color/colorAccent"
+                android:background="@drawable/border_testingres11"
                 android:padding="10dp"
                 android:text="@string/title"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
 
         </RelativeLayout>

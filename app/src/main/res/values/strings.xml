@@ -54,8 +54,8 @@
     <string name="login">Login</string>
     <string name="send">Send</string>
     <string name="minimum_calories">minimum calories</string>
-    <string name="max_calories">max calories</string>
-    <string name="min_calories">min calories</string>
+    <string name="max_calories">max calories*</string>
+    <string name="min_calories">min calories*</string>
     <string name="meal">Meal</string>
     <string name="gluten_free">Gluten-free</string>
     <string name="vegan">Vegan</string>
@@ -88,6 +88,7 @@
     <string name="agE">Age</string>
     <string name="heighT">Height</string>
     <string name="textview">TextView</string>
+
     <string name="pieChart">pieChart</string>
     <string name="daily_cal_burned_walking">Daily calories burned during walk exercise</string>
     <string name="target_cal">Target\n <b>600</b> kcal</string>
@@ -108,6 +109,9 @@
     <string name="connected">Connected to %1s</string>
     <string name="hrt_bpm">Heart Rate</string>
     <string name="label_hrt">Heart Rate, bpm</string>
+
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

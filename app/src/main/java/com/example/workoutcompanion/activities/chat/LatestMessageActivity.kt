@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutcompanion.BottomNavListener
 import com.example.workoutcompanion.R
+import com.example.workoutcompanion.activities.MusicActivity
 import com.example.workoutcompanion.activities.home.MainActivity
+import com.example.workoutcompanion.activities.profile.ProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
@@ -35,11 +37,14 @@ class LatestMessageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_latest_message)
 
+
+
         recyclerview_latest_messages.layoutManager = LinearLayoutManager(this)
 
         recyclerview_latest_messages.adapter = adapter
 
         recyclerview_latest_messages.addItemDecoration(DividerItemDecoration(this,DividerItemDecoration.VERTICAL))
+
 
         adapter.setOnItemClickListener { item, view ->
             Log.d("LatestMessages", "123")
@@ -61,6 +66,11 @@ class LatestMessageActivity : AppCompatActivity() {
             setOnNavigationItemSelectedListener(
                 BottomNavListener(this@LatestMessageActivity, LatestMessageActivity::class.java )
             )
+        }
+
+        floatingToMessages.setOnClickListener {
+            val intent = Intent(this, NewMessageActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -121,5 +131,7 @@ class LatestMessageActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
 
     }
+
+
 
 }
