@@ -12,6 +12,7 @@ import androidx.core.view.marginTop
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.example.workoutcompanion.R
 import com.example.workoutcompanion.model.WorkoutCompanionViewModel
 import com.github.mikephil.charting.components.AxisBase
@@ -42,15 +43,15 @@ class StepsBarChartFragment : Fragment() {
             container, false)
 
         // sets and draw bar chart
-        appViewModel.userSteps.observe(viewLifecycleOwner, {steps ->
+        appViewModel.userSteps.observe(viewLifecycleOwner) { steps ->
             val barEntries = ArrayList<BarEntry>()
             val labels = ArrayList<String>()
 
             steps.sortedByDescending { dateFormat.parse(it.date)}
                 .reversed().forEachIndexed { index, step ->
-                barEntries.add(BarEntry(index.toFloat(), step.value ))
-                labels.add(step.date.dropLast(6))
-            }
+                    barEntries.add(BarEntry(index.toFloat(), step.value ))
+                    labels.add(step.date.dropLast(6))
+                }
 
             Log.d("labels", labels.toString())
             Log.d("entries", barEntries.toString())
@@ -94,7 +95,7 @@ class StepsBarChartFragment : Fragment() {
                     invalidate()
                 }
             }
-        })
+        }
 
         return fragLayout
     }

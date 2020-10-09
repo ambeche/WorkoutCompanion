@@ -19,7 +19,8 @@
         app:lottie_autoPlay="true"
         app:lottie_fileName="music.json"
         app:lottie_loop="true"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        tools:srcCompat="@tools:sample/backgrounds/scenic"
+        android:contentDescription="@string/music_animation"/>
 
     <TextView
         android:id="@+id/song_title"
@@ -31,7 +32,8 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/album_Art1"
         app:layout_constraintStart_toStartOf="@+id/album_Art1"
-        app:layout_constraintTop_toBottomOf="@+id/album_Art1" />
+        app:layout_constraintTop_toBottomOf="@+id/album_Art1"
+        android:contentDescription="@string/track_name"/>
 
     <TextView
         android:id="@+id/song_Artist"
@@ -41,7 +43,8 @@
         android:layout_marginTop="20dp"
         android:textColor="#050303"
         app:layout_constraintStart_toStartOf="@+id/song_title"
-        app:layout_constraintTop_toBottomOf="@+id/song_title" />
+        app:layout_constraintTop_toBottomOf="@+id/song_title"
+        android:contentDescription="@string/singer_name"/>
 
     <ImageButton
         android:id="@+id/Go_btn"
@@ -52,10 +55,11 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/border_music"
         android:src="@drawable/ic_baseline_shuffle_24"
-        android:text="Button"
+        android:text="@string/button"
         android:tint="@color/design_default_color_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/shuffle_music_button"/>
 
     <ImageButton
         android:id="@+id/Play_btn"
@@ -67,5 +71,6 @@
         android:tint="@color/design_default_color_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
+        app:srcCompat="@drawable/ic_baseline_play_arrow_24"
+        android:contentDescription="@string/play_music_button"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

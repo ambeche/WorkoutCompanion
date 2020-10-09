@@ -26,15 +26,17 @@ class NewMessageActivity : AppCompatActivity() {
         recyclerview_newmessage.layoutManager = LinearLayoutManager(this)
 
         supportActionBar?.title = "Select User"
+
         fetchUsers()
 
     }
 
     companion object {
-        val USER_KEY = "USER_KEY"
+        const val USER_KEY = "USER_KEY"
     }
 
 
+    //Function which will fetch all users from Firebase And Populate the recycler view with
     private fun fetchUsers() {
         val ref = FirebaseDatabase.getInstance().getReference("/users")
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
@@ -50,9 +52,9 @@ class NewMessageActivity : AppCompatActivity() {
                     }
                 }
                 adapter.setOnItemClickListener { item, view ->
-                    val user_Item  = item as UserItem
+                    val userItem  = item as UserItem
                     val intent = Intent(view.context, ChatLogActivity::class.java)
-                    intent.putExtra(USER_KEY,user_Item.user)
+                    intent.putExtra(USER_KEY,userItem.user)
 
                     startActivity(intent)
                     finish()
@@ -68,6 +70,7 @@ class NewMessageActivity : AppCompatActivity() {
     }
 }
 
+//Class that takes care of populating the Row for Users
 class UserItem(val user: User): Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.username_textview_new_message.text = user.username

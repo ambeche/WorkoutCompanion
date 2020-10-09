@@ -4,14 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Base64
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -32,13 +30,11 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_log.*
-import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.chat_from_row.view.*
 import kotlinx.android.synthetic.main.chat_to_row.view.*
 import kotlinx.android.synthetic.main.chat_to_row.view.imageview_chat_to_row
 import kotlinx.android.synthetic.main.image_from_chat.view.*
 import kotlinx.android.synthetic.main.image_to_row.view.*
-import kotlinx.coroutines.*
 import java.io.File
 import java.util.*
 import kotlin.concurrent.schedule
@@ -56,19 +52,15 @@ class ChatLogActivity : AppCompatActivity() {
 
     var sharableimg:Bitmap? = null
 
-    var CapturedPhoto:Uri? = null
-
     var imagetobeshared :String? = null
 
     var uri_fromCaptured:Uri? = null
 
-    var delay_to_send:Int? = 3000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_log)
 
-        //supportActionBar?.title = "Chat Log"
 
         if ((Build.VERSION.SDK_INT>=23 && ContextCompat.checkSelfPermission(this,android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),0)
@@ -76,14 +68,14 @@ class ChatLogActivity : AppCompatActivity() {
 
         val fileName = "my_photo_wc"
         val imgPath = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        var imageFile: File = File.createTempFile(fileName, ".jpg", imgPath)
+        val imageFile: File = File.createTempFile(fileName, ".jpg", imgPath)
         val photoURI: Uri = FileProvider.getUriForFile(this,
             "com.example.workoutcompanion.fileprovider",
             imageFile)
 
         uri_fromCaptured = photoURI
 
-        mCurrentPhotoPath = imageFile!!.absolutePath
+        mCurrentPhotoPath = imageFile.absolutePath
 
         val ip = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         Log.d("FilesDire","$ip")
@@ -95,14 +87,11 @@ class ChatLogActivity : AppCompatActivity() {
         supportActionBar?.title = toUser?.username
 
 
-
         recyclerview_chat_log.adapter = adapter
 
 
-
             listenForMessages()
-           listenIMAGEMessages()
-
+            listenIMAGEMessages()
 
 
 
@@ -127,7 +116,7 @@ class ChatLogActivity : AppCompatActivity() {
 
         Camera_btn.setOnClickListener {
             if (myIntent.resolveActivity(packageManager) != null) {
-                myIntent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                myIntent.flags = Intent.FLAG_GRANT_WRITE_URI_PERMISSION
                 myIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
 
             }
@@ -137,9 +126,9 @@ class ChatLogActivity : AppCompatActivity() {
     }
 
 
-
+    //Function that send a message and  Save it To Firebase
     private fun performSendMessage() {
-        // how do we actually send a message to firebase...
+
         val text = edittext_chat_log.text.toString()
 
         val fromId = FirebaseAuth.getInstance().uid
@@ -173,7 +162,7 @@ class ChatLogActivity : AppCompatActivity() {
     }
 
 
-
+    //Function for uploading shared image to FireBase
     private fun uploadImageToFirebasestorage() {
 
         val fromId = FirebaseAuth.getInstance().uid
@@ -182,22 +171,22 @@ class ChatLogActivity : AppCompatActivity() {
 
 
 
-        ///
+
         if(selectedPhoto == null) return
 
         val filename = UUID.randomUUID().toString()
         val ref = FirebaseStorage.getInstance().getReference("/images/${filename}")
 
 
-        ref.putFile(selectedPhoto!!).addOnSuccessListener {
+        ref.putFile(selectedPhoto!!).addOnSuccessListener { it ->
             Log.d("Chat","Succefuly iploaded image ${it.metadata?.path}")
-            //imagetobeshared = it.metadata?.path
+
 
             ref.downloadUrl.addOnSuccessListener {
-                //it.toString()
+
                 Log.d("register","File location :${it.toString()}")
                 imagetobeshared = it.toString()
-               // saveUserrodatabse(it.toString())
+
 
             }
 
@@ -205,21 +194,20 @@ class ChatLogActivity : AppCompatActivity() {
             Log.d("Register","Failed to select photo")
         }
 
-        //if(uri == selectedPhoto) delay_to_send = 3000
         Timer("SettingUp", false).schedule(5900) {
 
             val reference = FirebaseDatabase.getInstance().getReference("/Image-user-messages/${fromId}/${toId}").push()
 
             val toReference = FirebaseDatabase.getInstance().getReference("/Image-user-messages/${toId}/${fromId}").push()
 
-            val ImagechatMessage = ImagChatMessage(reference.key!!, imagetobeshared!!, fromId!!, toId!!, System.currentTimeMillis() / 1000)
-            reference.setValue(ImagechatMessage)
+            val imagedMessage = ImagChatMessage(reference.key!!, imagetobeshared!!, fromId!!, toId!!, System.currentTimeMillis() / 1000)
+            reference.setValue(imagedMessage)
                 .addOnSuccessListener {
                     Log.d("SendImgMessage", "Saved our chat Imag message: ${reference.key}")
                     // edittext_chat_log.text.clear()
                     recyclerview_chat_log.scrollToPosition(adapter.itemCount - 1)
                 }
-            toReference.setValue(ImagechatMessage)
+            toReference.setValue(imagedMessage)
 
 
         }
@@ -228,9 +216,8 @@ class ChatLogActivity : AppCompatActivity() {
     }
 
 
+    //Function for Imageshared Mesages From FireBase
     private fun listenIMAGEMessages() {
-
-
 
            val fromId = FirebaseAuth.getInstance().uid
            val toId = toUser?.uid
@@ -278,6 +265,8 @@ class ChatLogActivity : AppCompatActivity() {
 
 
     }
+
+    //Function For Listening For messages from FireBase
     private fun listenForMessages() {
 
         val fromId = FirebaseAuth.getInstance().uid
@@ -322,7 +311,7 @@ class ChatLogActivity : AppCompatActivity() {
 
     }
 
-
+    //Function called after picking up the SharedImage
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -333,24 +322,22 @@ class ChatLogActivity : AppCompatActivity() {
             Log.d("FF", selectedPhoto.toString())
 
 
-            val uri_final = getCapturedImage(selectedPhoto)
+            val uriFinal = getCapturedImage(selectedPhoto)
 
-            sharableimg = uri_final
+            sharableimg = uriFinal
 
-            Log.d("Share1","Final_URi :   ${sharableimg}")
+            Log.d("Share1","Final_URi :   $sharableimg")
             Log.d("Share2","The URL to string  ${sharableimg.toString()}")
             // val BITMAP = BitmapDrawable(uri_final)
             //  button_Img.setBackgroundDrawable(BITMAP)
             //selectPhotoImageview.setImageBitmap(uri_final)
 
-            if (uri_final != null) {
+            if (uriFinal != null) {
                 performImgSharing()
             }
 
 
         }else if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK && data != null && uri_fromCaptured!= null){
-            val imageBitmap = BitmapFactory.decodeFile(mCurrentPhotoPath)
-
 
             selectedPhoto = uri_fromCaptured
             Log.d("FF", selectedPhoto.toString())
@@ -368,9 +355,8 @@ class ChatLogActivity : AppCompatActivity() {
         }
     }
 
+    //Function For Sharing
     private fun performImgSharing() {
-
-      //  val text = edittext_chat_log.text.toString()
 
         val fromId = FirebaseAuth.getInstance().uid
         val user = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
@@ -381,27 +367,9 @@ class ChatLogActivity : AppCompatActivity() {
 
         uploadImageToFirebasestorage()
 
-        //val reference = FirebaseDatabase.getInstance().getReference("/Image-user-messages/${fromId}/${toId}").push()
-
-       // val toReference = FirebaseDatabase.getInstance().getReference("/Image-user-messages/$toId/$fromId").push()
-
-        //val ImagechatMessage = ImagChatMessage(reference.key!!, sharableimg.toString(), fromId, toId, System.currentTimeMillis() / 1000)
-       /*   reference.setValue(ImagechatMessage)
-            .addOnSuccessListener {
-                Log.d("SendImgMessage", "Saved our chat Imag message: ${reference.key}")
-               // edittext_chat_log.text.clear()
-                recyclerview_chat_log.scrollToPosition(adapter.itemCount - 1)
-            }
-        toReference.setValue(ImagechatMessage)*/
-
-       // val latestMessageRef = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId/$toId")
-        //latestMessageRef.setValue(ImagechatMessage)
-
-       // val latestMessageToRef = FirebaseDatabase.getInstance().getReference("/latest-messages/$toId/$fromId")
-       // latestMessageToRef.setValue(ImagechatMessage)
-
     }
 
+    //This function converts the Uri of picked pic into Bitmap according on The sdk of the device
     @RequiresApi(Build.VERSION_CODES.P)
     private fun getCapturedImage(selectedPhotoUri: Uri?): Bitmap? {
 
@@ -424,74 +392,76 @@ class ChatLogActivity : AppCompatActivity() {
 
 }
 
-class ChatFromItem(val message:String,val user:User): Item<ViewHolder>() {
-    override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.textview_to_row.text = message
+    //Class takes care of populating messages row from  User to others
+    class ChatFromItem(val message:String,val user:User): Item<ViewHolder>() {
+        override fun bind(viewHolder: ViewHolder, position: Int) {
+            viewHolder.itemView.textview_to_row.text = message
 
-        val uri = user.profileImag
-        val targetImageView = viewHolder.itemView.imageview_chat_to_row
-        Picasso.get().load(uri).into(targetImageView)
+            val uri = user.profileImag
+            val targetImageView = viewHolder.itemView.imageview_chat_to_row
+            Picasso.get().load(uri).into(targetImageView)
 
+        }
+
+        override fun getLayout(): Int {
+            return R.layout.chat_to_row
+        }
     }
 
-    override fun getLayout(): Int {
-        return R.layout.chat_to_row
-    }
-}
+    //Class takes care of populating imageMessages row from  User to others
+    class ChatFromImageItem(val messageUrl:String?,val user:User): Item<ViewHolder>() {
+        override fun bind(viewHolder: ViewHolder, position: Int) {
+            Log.d("insideChatFrom","received:  ${messageUrl}")
 
-////For Image
-class ChatFromImageItem(val messageUrl:String?,val user:User): Item<ViewHolder>() {
-    override fun bind(viewHolder: ViewHolder, position: Int) {
-        Log.d("insideChatFrom","received:  ${messageUrl}")
+            val imagetoshow = viewHolder.itemView.imageSent_To_row
+            Picasso.get().load(messageUrl).into(imagetoshow)
+           // viewHolder.itemView.imageview_chat_to_row.setImageBitmap(image)
 
-        val imagetoshow = viewHolder.itemView.imageSent_To_row
-        Picasso.get().load(messageUrl).into(imagetoshow)
-       // viewHolder.itemView.imageview_chat_to_row.setImageBitmap(image)
+            val uri = user.profileImag
+            val targetImageView = viewHolder.itemView.imageview_chat_to_row
+            Picasso.get().load(uri).into(targetImageView)
 
-        val uri = user.profileImag
-        val targetImageView = viewHolder.itemView.imageview_chat_to_row
-        Picasso.get().load(uri).into(targetImageView)
+        }
 
-    }
-
-    override fun getLayout(): Int {
-        return R.layout.image_to_row
-    }
-}
-
-class ChatToImageItem(val messageUrl:String?,val user:User): Item<ViewHolder>() {
-    override fun bind(viewHolder: ViewHolder, position: Int) {
-
-        val imagetoshow = viewHolder.itemView.imageSent_from_row
-
-
-        Picasso.get().load(messageUrl).into(imagetoshow)
-
-       // viewHolder.itemView.imageview_chat_from_row.setImageBitmap(image)
-
-        val uri = user.profileImag
-        val targetImageView = viewHolder.itemView.imageview_chat_to_row
-        Picasso.get().load(uri).into(targetImageView)
-
+        override fun getLayout(): Int {
+            return R.layout.image_to_row
+        }
     }
 
-    override fun getLayout(): Int {
-        return R.layout.image_from_chat
+   //Class takes care of populating messages row from  User to others
+    class ChatToImageItem(val messageUrl:String?,val user:User): Item<ViewHolder>() {
+        override fun bind(viewHolder: ViewHolder, position: Int) {
+
+            val imagetoshow = viewHolder.itemView.imageSent_from_row
+
+
+            Picasso.get().load(messageUrl).into(imagetoshow)
+
+           // viewHolder.itemView.imageview_chat_from_row.setImageBitmap(image)
+
+            val uri = user.profileImag
+            val targetImageView = viewHolder.itemView.imageview_chat_to_row
+            Picasso.get().load(uri).into(targetImageView)
+
+        }
+
+        override fun getLayout(): Int {
+            return R.layout.image_from_chat
+        }
     }
-}
 
 
+    //Class takes care of populating ImageMessages row from  User to others
+    class ChatToItem(val message:String,val user:User): Item<ViewHolder>() {
+        override fun bind(viewHolder: ViewHolder, position: Int) {
+            viewHolder.itemView.textview_from_row.text = message
 
-class ChatToItem(val message:String,val user:User): Item<ViewHolder>() {
-    override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.textview_from_row.text = message
+            val uri = user.profileImag
+            val targetImageView = viewHolder.itemView.imageview_chat_from_row
+            Picasso.get().load(uri).into(targetImageView)
+        }
 
-        val uri = user.profileImag
-        val targetImageView = viewHolder.itemView.imageview_chat_from_row
-        Picasso.get().load(uri).into(targetImageView)
+        override fun getLayout(): Int {
+            return R.layout.chat_from_row
+        }
     }
-
-    override fun getLayout(): Int {
-        return R.layout.chat_from_row
-    }
-}

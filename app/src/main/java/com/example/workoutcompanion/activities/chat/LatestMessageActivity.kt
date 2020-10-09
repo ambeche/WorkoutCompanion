@@ -50,12 +50,11 @@ class LatestMessageActivity : AppCompatActivity() {
             Log.d("LatestMessages", "123")
             val intent = Intent(this, ChatLogActivity::class.java)
 
-            // we are missing the chat partner user
-
             val row = item as finalMessageRow
             intent.putExtra(NewMessageActivity.USER_KEY, row.chatPartnerUser)
             startActivity(intent)
         }
+
 
         listenForLatestMessages()
 
@@ -68,6 +67,7 @@ class LatestMessageActivity : AppCompatActivity() {
             )
         }
 
+        //Button that will open New Message Activity for Chating
         floatingToMessages.setOnClickListener {
             val intent = Intent(this, NewMessageActivity::class.java)
             startActivity(intent)
@@ -77,6 +77,7 @@ class LatestMessageActivity : AppCompatActivity() {
 
 
 
+    //Function which listens to Last  messages either sent by user or to user
     private fun listenForLatestMessages() {
         val fromId = FirebaseAuth.getInstance().uid
         val ref = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId")
@@ -105,6 +106,7 @@ class LatestMessageActivity : AppCompatActivity() {
         })
     }
 
+    //Function that refreshes The recycler view for updating it with new latest messages
     private fun refreshRecyclerViewMessages() {
         adapter.clear()
         latestMessagesMap.values.forEach {
@@ -113,6 +115,7 @@ class LatestMessageActivity : AppCompatActivity() {
     }
 
 
+    //Function for proceeding from clicking a user to discuss with
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item?.itemId) {
             R.id.menu_new_message -> {

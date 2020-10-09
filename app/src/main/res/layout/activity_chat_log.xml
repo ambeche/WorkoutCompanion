@@ -15,12 +15,15 @@
         android:layout_marginBottom="4dp"
         android:background="@android:color/white"
         android:ems="10"
-        android:hint="Message ..."
+        android:hint="@string/message"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/send_button_chat_log"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/upload_Button" />
+        app:layout_constraintStart_toEndOf="@+id/upload_Button"
+        android:contentDescription="@string/mesage_field"
+        tools:ignore="ContentDescription"
+        android:autofillHints="" />
 
     <ImageButton
         android:id="@+id/send_button_chat_log"
@@ -36,7 +39,8 @@
         android:tint="#050709"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edittext_chat_log" />
+        app:layout_constraintTop_toTopOf="@+id/edittext_chat_log"
+        android:contentDescription="@string/send_message_button"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_chat_log"
@@ -47,7 +51,8 @@
         app:layout_constraintBottom_toTopOf="@+id/edittext_chat_log"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/list_of_messages"/>
 
     <ImageButton
         android:id="@+id/upload_Button"
@@ -56,12 +61,13 @@
         android:layout_marginStart="68dp"
         android:backgroundTint="#D1AE73"
         android:src="@drawable/ic_baseline_image_24"
-        android:text="Upload"
+        android:text="@string/upload"
         android:tint="#130909"
         app:layout_constraintBottom_toBottomOf="@+id/edittext_chat_log"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/edittext_chat_log"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:contentDescription="@string/pick_image_button"/>
 
     <ImageButton
         android:id="@+id/Camera_btn"
@@ -75,5 +81,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/upload_Button"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_baseline_photo_camera_24" />
+        app:srcCompat="@drawable/ic_baseline_photo_camera_24"
+        android:contentDescription="@string/take_picture_button"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

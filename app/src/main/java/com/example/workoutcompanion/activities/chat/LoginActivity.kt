@@ -19,10 +19,12 @@ class LoginActivity: AppCompatActivity() {
         button_login.setOnClickListener {
 
             performLogin()
+
         }
 
     }
 
+    //Function for login in to Firebase
     private fun performLogin() {
         val email = email_texti.editText?.text.toString()
         val password = Pass_texti.editText?.text.toString()

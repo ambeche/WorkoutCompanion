@@ -14,7 +14,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="4dp"
         app:civ_border_color="#ffffff"
-        app:civ_border_width="4dp" />
+        app:civ_border_width="4dp"
+        android:contentDescription="@string/image_holder"/>
 
     <Button
         android:id="@+id/button_Img"
@@ -22,7 +23,8 @@
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
-        android:text="@string/load_avatar" />
+        android:text="@string/load_avatar"
+        android:contentDescription="@string/pick_image_button"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,7 +55,8 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#D2FFFFFF"
                     android:fontFamily="sans-serif-black"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:contentDescription="@string/username_field"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#D2FFFFFF"
                 android:fontFamily="sans-serif-black"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:contentDescription="@string/password_field"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,7 +91,8 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#D2FFFFFF"
                 android:fontFamily="sans-serif-black"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:contentDescription="@string/email_field"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -103,14 +108,18 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="32dp"
                 android:layout_weight="1"
-                android:text="@string/register" />
+                android:text="@string/register"
+                android:contentDescription="@string/register_button"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/log_in" />
+                android:text="@string/log_in"
+                android:contentDescription="@string/login_button"
+                tools:ignore="ButtonStyle" />
         </LinearLayout>
 
     </LinearLayout>

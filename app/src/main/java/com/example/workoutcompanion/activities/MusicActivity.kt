@@ -1,7 +1,6 @@
 package com.example.workoutcompanion.activities
 
 import android.content.pm.PackageManager
-import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
@@ -14,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import com.example.workoutcompanion.R
 import com.progur.droidmelody.SongFinder
 import kotlinx.android.synthetic.main.activity_music.*
@@ -24,20 +22,12 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.jetbrains.anko.ctx
 import org.jetbrains.anko.imageResource
-import java.net.URL
 
 class MusicActivity : AppCompatActivity() {
 
-    var albumArt: ImageView? = null
-
 
     var playButton: ImageButton? = null
-    var shuffleButton: ImageButton? = null
 
-    var songTitle: TextView? = null
-    var songArtist : TextView? = null
-
-    var SongList:MutableList<SongFinder.Song>? = null
     var number :Int  = 0
 
     private var mediaPlayer: MediaPlayer? = null
@@ -69,11 +59,11 @@ class MusicActivity : AppCompatActivity() {
         }
 
 
-
-
         Play_btn.setOnClickListener {
             playOrPause()
         }
+
+
         Go_btn.setOnClickListener {
             Play_btn.isVisible = true
             playRandom()
@@ -89,30 +79,26 @@ class MusicActivity : AppCompatActivity() {
         songFinder.prepare()
         val songs = songFinder.allSongs
 
-        // Play_btn.isEnabled = true
-        //Go_btn.isEnabled = true
-
-
-
         number = songs?.count()!!
 
         return songs
 
     }
 
-    fun playRandom() {
-//println(number)
+    //Function that shuffles the music tracks available
+    private fun playRandom() {
+
         Log.d("Songs!", "${createPlayer()?.count()}")
         if (createPlayer()?.count()!! != 0) {
 
 
-        var randomNum = (0..createPlayer()?.count()!! - 1).shuffled().first()
+        val randomNum = (0..createPlayer()?.count()!! - 1).shuffled().first()
         createPlayer()?.shuffle()
         Log.d("size", "$randomNum")
         println(number)
         println("GGG  ${createPlayer()}")
 
-        var song = createPlayer()?.get(randomNum)
+        val song = createPlayer()?.get(randomNum)
 
 
         mediaPlayer?.reset()
@@ -151,8 +137,9 @@ class MusicActivity : AppCompatActivity() {
 
     }
 
-    fun playOrPause(){
-        var songPlaying:Boolean? = mediaPlayer?.isPlaying
+    //Function that play/Pause Music
+    private fun playOrPause(){
+        val songPlaying:Boolean? = mediaPlayer?.isPlaying
 
         if(songPlaying == true){
             album_Art1.pauseAnimation()

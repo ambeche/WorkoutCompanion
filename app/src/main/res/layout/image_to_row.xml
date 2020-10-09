@@ -17,7 +17,8 @@
         app:civ_border_color="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:srcCompat="@android:drawable/btn_star_big_on"
+        android:contentDescription="@string/my_yprofile_image"/>
 
     <ImageView
         android:id="@+id/imageSent_To_row"
@@ -26,5 +27,6 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@+id/imageview_chat_to_row"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:contentDescription="@string/image_i_sent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,27 +10,25 @@ import com.example.workoutcompanion.activities.chat.User
 import com.example.workoutcompanion.activities.home.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.first_fragment_profile.*
-import kotlinx.android.synthetic.main.first_fragment_profile.view.*
 
 class ProfileActivity :AppCompatActivity(),Comunicator {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        val fragment1 = First_Fragment_Profile()
+        val fragment1 = FirstFragmentProfile()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_fmain,fragment1)
             .commit()
 
     }
 
-    override fun TransToSettings(){
-        val fragment2 = Second_Fragment_Settings()
+    override fun TransToSettings() {
 
-        this.supportFragmentManager.beginTransaction().replace(R.id.fragment_fmain, fragment2).addToBackStack(null).commit()
     }
 
+
+    //Function for sign-in out from application
     override fun Sign_out() {
 
             FirebaseAuth.getInstance().signOut()
@@ -40,6 +38,7 @@ class ProfileActivity :AppCompatActivity(),Comunicator {
 
     }
 
+    //Function for updating user data to firebase
      override fun update_Userrodatabse(ProfileImgUrl:String) {
         val uid = FirebaseAuth.getInstance().uid
         val ref =  FirebaseDatabase.getInstance().getReference("/users/${uid}")

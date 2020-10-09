@@ -46,7 +46,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
 
-                    android:text="amount"
+                    android:text="@string/amount"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="italic" />
@@ -57,9 +57,10 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
 
-                    android:text="Daily Needs%"
+                    android:text="@string/daily_needs"
                     android:textSize="18sp"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"
+                    android:contentDescription="@string/daily_needs1"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -80,7 +81,8 @@
                 android:text="@string/protein"
                 android:textAlignment="center"
                 android:textSize="20sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:contentDescription="@string/protein"/>
 
             <TextView
                 android:id="@+id/textView_Protein"
@@ -88,14 +90,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/protein_holder"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:contentDescription="@string/amount_of_protein"/>
 
             <TextView
                 android:id="@+id/Prot_per"
                 android:layout_width="49dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="@string/textview"
+                android:contentDescription="@string/daily_needs_of_protein"/>
         </LinearLayout>
 
         <LinearLayout
@@ -114,7 +118,8 @@
                 android:text="@string/fat"
                 android:textAlignment="center"
                 android:textSize="20sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:contentDescription="@string/fat"/>
 
             <TextView
                 android:id="@+id/textView_Fat"
@@ -122,14 +127,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/fat_holder"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:contentDescription="@string/amount_of_fat"/>
 
             <TextView
                 android:id="@+id/Fat_per"
                 android:layout_width="49dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="@string/textview"
+                android:contentDescription="@string/daily_needs_of_fat"/>
         </LinearLayout>
 
         <LinearLayout
@@ -148,7 +155,8 @@
                 android:text="@string/carbohydrates"
                 android:textAlignment="center"
                 android:textSize="20sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:contentDescription="@string/carbohydrates" />
 
             <TextView
                 android:id="@+id/textView_Carbohydrates"
@@ -156,14 +164,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/carbs_holder"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:contentDescription="@string/amount_of_carbs"/>
 
             <TextView
                 android:id="@+id/Calrb_per"
                 android:layout_width="49dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="@string/textview"
+                android:contentDescription="@string/daily_needs_of_carbs"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -194,7 +204,8 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flip_button"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="@string/summary_of_the_meal"/>
 
     <Button
         android:id="@+id/flip_button"
@@ -202,13 +213,15 @@
         android:layout_height="42dp"
         android:layout_marginTop="4dp"
         android:background="@color/design_default_color_background"
-        android:text="Flip "
+        android:text="@string/flip"
         android:textAlignment="center"
         android:textSize="15sp"
         app:icon="@drawable/ic_round_flip_camera_android_24"
         app:iconTint="#100F0F"
         app:layout_constraintEnd_toEndOf="@+id/card_front"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="Flip button"
+        tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -237,7 +250,8 @@
                 android:text="@string/total_calories"
                 android:textAlignment="center"
                 android:textSize="20sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:contentDescription="@string/total_calories1"/>
 
             <TextView
                 android:id="@+id/TextView_Calorie"
@@ -245,7 +259,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/calories_holder"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:contentDescription="@string/number_total_calories"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -262,7 +277,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        android:contentDescription="@string/nutrition_informations1"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"

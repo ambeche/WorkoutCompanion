@@ -50,37 +50,49 @@
             android:exported="false" />
         <activity
             android:name=".activities.home.MainActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.routines.RoutinesActivity"/>
+
 
         <activity android:name=".activities.diet.ResultOfDiet1"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activities.diet.Nutrition" />
-        <activity android:name=".activities.diet.RecipeInfoSpesific" />
-        <activity android:name=".activities.chat.RegisterActivity" />
-        <activity android:name=".activities.chat.LoginActivity" />
-        <activity android:name=".activities.chat.NewMessageActivity">
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.diet.Nutrition"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.diet.RecipeInfoSpesific"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.chat.RegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.chat.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.chat.NewMessageActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.chat.LatestMessageActivity" />
         </activity>
-        <activity android:name=".activities.chat.LatestMessageActivity" />
-        <activity android:name=".activities.chat.ChatLogActivity">
+        <activity android:name=".activities.chat.LatestMessageActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.chat.ChatLogActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.chat.NewMessageActivity" />
         </activity>
         <activity android:name=".activities.chat.ChatActivity" />
 
-        <activity android:name=".activities.MusicActivity"/>
+        <activity android:name=".activities.MusicActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activities.profile.ProfileActivity"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

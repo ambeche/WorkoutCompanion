@@ -4,10 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.method.TextKeyListener.clear
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,12 +12,9 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.workoutcompanion.BottomNavListener
 import com.example.workoutcompanion.R
 import com.example.workoutcompanion.adapters.AdapterForDiet1
-import com.example.workoutcompanion.interfaces.DietComunicator
 import com.example.workoutcompanion.model.APIcalls
 import com.example.workoutcompanion.model.CenterZoomLayout
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.recipe_specific.*
 import kotlinx.android.synthetic.main.testingresult1.*
 import okhttp3.*
 import java.io.IOException
@@ -52,6 +46,7 @@ class ResultOfDiet1 : AppCompatActivity() {
             (this, ResultOfDiet1::class.java ))
 
 
+        //this is for Animating the Recycler view
         val layoutManager = CenterZoomLayout(this)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         layoutManager.reverseLayout = true
@@ -78,14 +73,15 @@ class ResultOfDiet1 : AppCompatActivity() {
 
     }
 
+    //Function that Executes the search for meal
     private fun checkSearch() {
         if (searchedMale?.isNotEmpty()!! && searchedmincal?.isNotEmpty()!! && searchedmaxCalo?.isNotEmpty()!! && searchedmincal!!.toInt() < searchedmaxCalo!!.toInt() && searchedmincal!!.count() <= 3 && searchedmaxCalo!!.count() <= 4){
             url = APIcalls.SearchByCal(searchedMale,searchedmincal,searchedmaxCalo,type_of_diet)
-try{
-    fetchJsonfromApiDiet()
-}catch (e:Exception){
-    Log.d("Error1","${e}")
-}
+                try{
+                    fetchJsonfromApiDiet()
+                }catch (e:Exception){
+                    Log.d("Error1","${e}")
+                }
 
         }else if ( searchedmincal!!.isNotEmpty() && searchedmaxCalo!!.isNotEmpty() && searchedmincal!!.toInt() > searchedmaxCalo!!.toInt()) {
             Toast.makeText(this,"GOOOOOOOOO",Toast.LENGTH_SHORT).show()
@@ -96,6 +92,7 @@ try{
 
     }
 
+    //Function That fetches Data from Api and populates the  Recycler view
     private fun fetchJsonfromApiDiet() {
         Log.d("URL","${url}")
 
@@ -111,7 +108,7 @@ try{
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    val body = response?.body?.string()
+                    val body = response.body?.string()
                     println("this is the bodyyy"+body)
 
                     val gson = GsonBuilder().create()
@@ -129,7 +126,7 @@ try{
 
                                 val intent = Intent(this@ResultOfDiet1,RecipeInfoSpesific::class.java).apply {
                                     putExtra("specific_info_from_ResultDiet1","${it.id}")
-                                    putExtra("img","${it.image}")
+                                    putExtra("img", it.image)
                                 }
                                 startActivity(intent)
 
@@ -154,6 +151,7 @@ try{
     }
 
 }
+
 
 class ResultfromDietclass(val results : List<ContentofResulDietclass>, val totalResults:Int)
 

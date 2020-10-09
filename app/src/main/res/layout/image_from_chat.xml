@@ -15,7 +15,8 @@
         app:civ_border_width="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:srcCompat="@android:drawable/btn_star_big_on"
+        android:contentDescription="@string/the_other_user_s_profil_image"/>
 
     <ImageView
         android:id="@+id/imageSent_from_row"
@@ -24,5 +25,6 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageview_chat_to_row"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:contentDescription="@string/the_image_sent_to_me"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

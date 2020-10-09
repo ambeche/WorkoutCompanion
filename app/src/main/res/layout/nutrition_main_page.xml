@@ -88,7 +88,8 @@
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp"
-                        tools:ignore="UseCompoundDrawables">
+                        tools:ignore="UseCompoundDrawables"
+                        android:contentDescription="@string/gluten_free_card">
 
                         <ImageView
                             android:layout_width="140dp"
@@ -103,7 +104,8 @@
                             android:layout_marginTop="12dp"
                             android:text="@string/gluten_free"
                             android:textColor="@color/color3"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:contentDescription="@string/gluten_free1"/>
 
                     </LinearLayout>
 
@@ -126,7 +128,8 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:contentDescription="@string/vegan_card">
 
                         <ImageView
                             android:layout_width="140dp"
@@ -141,7 +144,8 @@
                             android:layout_marginTop="12dp"
                             android:text="@string/vegan"
                             android:textColor="@color/color3"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:contentDescription="@string/vegan"/>
 
                     </LinearLayout>
 
@@ -165,7 +169,8 @@
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp"
-                        tools:ignore="UseCompoundDrawables">
+                        tools:ignore="UseCompoundDrawables"
+                        android:contentDescription="@string/lacto_vegan_card">
 
                         <ImageView
                             android:layout_width="80dp"
@@ -180,7 +185,8 @@
                             android:layout_marginTop="12dp"
                             android:text="@string/lacto_vegan"
                             android:textColor="@color/color3"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:contentDescription="@string/lacto_vegan1"/>
 
                     </LinearLayout>
 
@@ -203,7 +209,8 @@
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp"
-                        tools:ignore="UseCompoundDrawables">
+                        tools:ignore="UseCompoundDrawables"
+                        android:contentDescription="@string/keto_card">
 
                         <ImageView
                             android:layout_width="80dp"
@@ -218,7 +225,8 @@
                             android:layout_marginTop="12dp"
                             android:text="@string/keto"
                             android:textColor="@color/color3"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:contentDescription="@string/keto"/>
 
                     </LinearLayout>
 
@@ -242,7 +250,8 @@
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp"
-                        tools:ignore="UseCompoundDrawables">
+                        tools:ignore="UseCompoundDrawables"
+                        android:contentDescription="@string/ovo_vegan_card">
 
                         <ImageView
                             android:layout_width="140dp"
@@ -256,7 +265,8 @@
                             android:layout_marginTop="12dp"
                             android:text="@string/ovo_vegan"
                             android:textColor="@color/color3"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:contentDescription="@string/ovo_vegan1"/>
 
                     </LinearLayout>
 
@@ -280,7 +290,8 @@
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp"
-                        tools:ignore="UseCompoundDrawables">
+                        tools:ignore="UseCompoundDrawables"
+                        android:contentDescription="@string/pescatrian_card">
 
                         <ImageView
                             android:layout_width="80dp"
@@ -294,7 +305,8 @@
                             android:layout_marginTop="12dp"
                             android:text="@string/pescatrian"
                             android:textColor="@color/color3"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:contentDescription="@string/pescatrian"/>
 
                     </LinearLayout>
 
@@ -318,7 +330,8 @@
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp"
-                        tools:ignore="UseCompoundDrawables">
+                        tools:ignore="UseCompoundDrawables"
+                        android:contentDescription="@string/paleo_card">
 
                         <ImageView
                             android:layout_width="80dp"
@@ -332,7 +345,8 @@
                             android:layout_marginTop="12dp"
                             android:text="@string/paleo"
                             android:textColor="@color/color3"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:contentDescription="@string/paleo"/>
 
                     </LinearLayout>
 
@@ -356,7 +370,8 @@
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp"
-                        tools:ignore="UseCompoundDrawables">
+                        tools:ignore="UseCompoundDrawables"
+                        android:contentDescription="@string/primal_card">
 
                         <ImageView
                             android:layout_width="80dp"
@@ -370,7 +385,8 @@
                             android:layout_marginTop="12dp"
                             android:text="@string/primal"
                             android:textColor="@color/color3"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:contentDescription="@string/primal"/>
 
                     </LinearLayout>
 
@@ -394,7 +410,8 @@
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="16dp"
-                        tools:ignore="UseCompoundDrawables">
+                        tools:ignore="UseCompoundDrawables"
+                        android:contentDescription="@string/whole_30_card">
 
                         <ImageView
                             android:layout_width="80dp"
@@ -408,7 +425,8 @@
                             android:layout_marginTop="12dp"
                             android:text="@string/whole_30"
                             android:textColor="@color/color3"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:contentDescription="@string/whole_30"/>
 
                     </LinearLayout>
 

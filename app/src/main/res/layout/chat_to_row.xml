@@ -16,9 +16,10 @@
         android:background="@drawable/rounded_tochat"
         android:maxWidth="240dp"
         android:padding="16dp"
-        android:text="This is my message that will wrap into multiple lines and keep on going"
+        android:text="@string/this_is_my_message_that_will_wrap_into_multiple_lines_and_keep_on_going"
         app:layout_constraintEnd_toStartOf="@+id/imageview_chat_to_row"
-        app:layout_constraintTop_toTopOf="@+id/imageview_chat_to_row" />
+        app:layout_constraintTop_toTopOf="@+id/imageview_chat_to_row"
+        android:contentDescription="@string/my_sent_message"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageview_chat_to_row"
@@ -31,6 +32,7 @@
         app:civ_border_color="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:srcCompat="@android:drawable/btn_star_big_on"
+        android:contentDescription="@string/my_profile_image"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

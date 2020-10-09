@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.example.workoutcompanion.R
 import com.example.workoutcompanion.model.WorkoutCompanionViewModel
 import com.github.mikephil.charting.components.XAxis
@@ -35,7 +36,7 @@ class CaloriesPieChartFragment : Fragment() {
         // Inflate the layout for this fragment
         val fragLayout = inflater.inflate(R.layout.fragment_calories_pie_chart,
             container, false)
-        appViewModel.userSteps.observe(viewLifecycleOwner, {steps ->
+        appViewModel.userSteps.observe(viewLifecycleOwner) { steps ->
             val pieEntries = ArrayList<PieEntry>()
             val labels = ArrayList<String>()
 
@@ -72,7 +73,7 @@ class CaloriesPieChartFragment : Fragment() {
                     invalidate()
                 }
             }
-        })
+        }
 
         return fragLayout
     }

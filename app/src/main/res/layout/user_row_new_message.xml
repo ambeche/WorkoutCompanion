@@ -15,14 +15,15 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
-        android:text="Username"
+        android:text="@string/username1"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageview_new_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageview_new_message"
-        app:layout_constraintTop_toTopOf="@+id/imageview_new_message" />
+        app:layout_constraintTop_toTopOf="@+id/imageview_new_message"
+        android:contentDescription="@string/username_text"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageview_new_message"
@@ -34,6 +35,7 @@
         app:civ_border_width="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_dialog" />
+        app:srcCompat="@android:drawable/btn_dialog"
+        android:contentDescription="@string/image_of_the_user"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

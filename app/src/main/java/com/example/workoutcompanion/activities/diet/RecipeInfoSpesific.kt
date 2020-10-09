@@ -2,6 +2,7 @@ package com.example.workoutcompanion.activities.diet
 
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -90,6 +91,7 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
 
     }
 
+    //Function that fetches Summary of The Meal
     private fun fetchSummary() {
 
         val reques = url_For_Summary?.let { Request.Builder().url(it).build() }
@@ -103,7 +105,7 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    val body = response?.body?.string()
+                    val body = response.body?.string()
                     println("kkkkkkkkkkkk"+body)
 
                     val gson = GsonBuilder().create()
@@ -122,6 +124,7 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
         }
     }
 
+    //Function that Fetches the Nutrition Values of Meal
     private fun fetchJsonFromApiSpec() {
 
         val reques = url?.let { Request.Builder().url(it).build() }
@@ -134,6 +137,7 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
                     println("Failed to do request!!!")
                 }
 
+                @SuppressLint("SetTextI18n")
                 override fun onResponse(call: Call, response: Response) {
                     val body = response?.body?.string()
                     println("kkkkkkkkkkkk"+body)
@@ -166,9 +170,9 @@ class RecipeInfoSpesific:AppCompatActivity() ,DietComunicator{
 
     }
 
-    override fun PassData(Sth: String) {
+    override fun PassData(sth: String) {
         val bundle = Bundle()
-        bundle.putString("message",Sth)
+        bundle.putString("message",sth)
 
 
         //al fragment1 = FirstFragment()
@@ -188,6 +192,5 @@ class ContentofSpesific(val calories:String,val  bad:List<DeepInfoBad>, val good
 class DeepInfoBad(val title : String,val amount:String, val percentOfDailyNeeds: Float)
 
 class DeepInfoGood(val title : String,val amount:String, val percentOfDailyNeeds: Float)
-
 
 class ContentofSummary(val summary:String)

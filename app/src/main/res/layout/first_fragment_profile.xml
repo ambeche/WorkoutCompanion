@@ -15,17 +15,19 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        android:contentDescription="@string/save_button"/>
 
     <Button
         android:id="@+id/Update_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Update"
+        android:text="@string/update"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
         app:layout_constraintStart_toStartOf="@+id/linearLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        android:contentDescription="@string/update_button"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_user"
@@ -36,7 +38,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="@string/my_profile_image"/>
 
     <ImageButton
         android:id="@+id/Sighn_Out_btn"
@@ -46,7 +49,8 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_signout" />
+        app:srcCompat="@drawable/icon_signout"
+        android:contentDescription="@string/sign_out_button"/>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -65,7 +69,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,7 +86,8 @@
                     android:textAlignment="textStart"
                     android:textAllCaps="true"
                     android:textColor="#3958CA"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
                 <EditText
                     android:id="@+id/user_Text"
@@ -90,7 +96,8 @@
 
                     android:text="@string/textview"
                     android:textAlignment="textStart"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:contentDescription="@string/my_username"/>
             </LinearLayout>
 
             <LinearLayout
@@ -114,9 +121,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:inputType="number"
-                    android:text="TextView"
+                    android:text="@string/textview"
                     android:textAlignment="textStart"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:contentDescription="@string/my_age"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -143,10 +151,11 @@
                     android:id="@+id/text_Email"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:text="here email"
+                    android:text="@string/here_email"
                     android:textAlignment="textStart"
                     android:textAllCaps="true"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:contentDescription="@string/my_email"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -176,9 +185,10 @@
                     android:id="@+id/gender_text"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:text="TextView"
+                    android:text="@string/textview"
                     android:textAlignment="center"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:contentDescription="@string/my_gender"/>
             </LinearLayout>
 
             <LinearLayout
@@ -204,7 +214,8 @@
                     android:inputType="number"
                     android:text="@string/textview"
                     android:textAlignment="center"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:contentDescription="@string/my_phone_number"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -235,9 +246,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:inputType="number"
-                    android:text="TextView"
+                    android:text="@string/textview"
                     android:textAlignment="center"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:contentDescription="@string/my_height"/>
 
             </LinearLayout>
 
@@ -262,9 +274,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:inputType="number"
-                    android:text="TextView"
+                    android:text="@string/textview"
                     android:textAlignment="center"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:contentDescription="@string/my_weight"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -286,7 +299,8 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/linearLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        android:contentDescription="@string/cancel_button"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"
@@ -301,24 +315,27 @@
         android:layout_height="29dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="88dp"
-        android:text="Profile"
+        android:text="@string/profile"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.707"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/profile_text"/>
 
     <TextView
         android:id="@+id/textView17"
         android:layout_width="145dp"
         android:layout_height="28dp"
         android:layout_marginTop="8dp"
-        android:text="User Information"
+        android:text="@string/user_information"
         android:textColor="#3958CA"
         android:textSize="18sp"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="@+id/linearLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/image_user" />
+        app:layout_constraintTop_toBottomOf="@+id/image_user"
+        android:contentDescription="@string/user_information"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

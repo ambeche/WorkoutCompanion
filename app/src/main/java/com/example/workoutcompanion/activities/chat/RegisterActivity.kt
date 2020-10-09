@@ -11,7 +11,6 @@ import android.os.Parcelable
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -25,24 +24,27 @@ import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 
+//This Activity Performs Registering
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        // initialize dropdown menu for gender
+
         val gender = resources.getStringArray(R.array.gender)
         val dropDownMenuAdapter = ArrayAdapter(this, R.layout.list_item, gender)
 
-
+        //Register Button
         btn1.setOnClickListener {
             performRegister()
         }
+
         button_Img.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, 0)
         }
 
+        //Login Button
         button2.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
@@ -51,6 +53,7 @@ class RegisterActivity : AppCompatActivity() {
 
     var selectedPhotoUri:Uri?= null
 
+    //this function will be called after picking picture
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -61,14 +64,13 @@ class RegisterActivity : AppCompatActivity() {
 
 
             val uri_final = getCapturedImage(selectedPhotoUri)
-            // val BITMAP = BitmapDrawable(uri_final)
-            //  button_Img.setBackgroundDrawable(BITMAP)
             selectPhotoImageview.setImageBitmap(uri_final)
             button_Img.alpha = 0f
 
         }
     }
 
+    //This function converts the Uri of picked pic into Bitmap according on The sdk of the device
     @RequiresApi(Build.VERSION_CODES.P)
     private fun getCapturedImage(selectedPhotoUri: Uri?): Bitmap? {
         var uu:Bitmap? = null
@@ -86,29 +88,38 @@ class RegisterActivity : AppCompatActivity() {
         return uu
     }
 
+    //Function for register
     private fun performRegister() {
         val name = getInput(edit_Name)
         val email = getInput(edit_Email)
         val pass = getInput(edit_PassWord)
 
-        if(email.isEmpty() || pass.isEmpty()) {
+        if(email.isEmpty() || pass.isEmpty() || name.isEmpty()) {
             Toast.makeText(this,"Please fill in the fields",Toast.LENGTH_SHORT).show()
             return
+        }else if (selectedPhotoUri == null){
+            Toast.makeText(this,"Please chose a pic",Toast.LENGTH_SHORT).show()
+        }else {
+
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,pass).addOnCompleteListener{
+                if (!it.isSuccessful){
+                    return@addOnCompleteListener
+                }else{
+                    Log.d("Main","Successfully created user with uid:${it.result?.user?.uid}")
+                    uploadImageToFirebasestorage()
+                }
+            }.addOnFailureListener{
+                Toast.makeText(this,"${it.message}",Toast.LENGTH_SHORT).show()
+                Log.d("Main","Failed with ${it.message}")
+            }
+
         }
 
 
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,pass).addOnCompleteListener{
-            if (!it.isSuccessful){
-                return@addOnCompleteListener
-            }else{
-                Log.d("Main","Successfully created user with uid:${it.result?.user?.uid}")
-                uploadImageToFirebasestorage()            }
-        }.addOnFailureListener{
-            Toast.makeText(this,"${it.message}",Toast.LENGTH_SHORT).show()
-            Log.d("Main","Failed with ${it.message}")
-        }
+
     }
 
+    //Function for uploading image to firebase
     private fun uploadImageToFirebasestorage() {
 
         if(selectedPhotoUri == null) return
@@ -130,6 +141,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    //Function for saving user enterd in registeration into firebase data
     private fun saveUserrodatabse(ProfileImgUrl:String) {
         val uid = FirebaseAuth.getInstance().uid
         val ref =  FirebaseDatabase.getInstance().getReference("/users/${uid}")
@@ -156,6 +168,8 @@ class RegisterActivity : AppCompatActivity() {
         ev.forEach { it.editText?.text?.clear() }
     }
 }
+
+//This class to get parcelize data from Firebase inform of User
 @Parcelize
 class User(val uid: String, var username:String, val profileImag:String,val email:String,
            var age:String,var gender:String,var weight:String,var height:String,var phone:String):

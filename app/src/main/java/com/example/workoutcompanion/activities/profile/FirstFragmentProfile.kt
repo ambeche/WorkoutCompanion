@@ -1,26 +1,23 @@
 package com.example.workoutcompanion.activities.profile
 
-import android.content.Intent
+
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.workoutcompanion.R
-import com.example.workoutcompanion.activities.chat.RegisterActivity
 import com.example.workoutcompanion.activities.home.MainActivity
-import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.first_fragment_profile.*
 import kotlinx.android.synthetic.main.first_fragment_profile.view.*
-import kotlinx.android.synthetic.main.row_for_diet1.view.*
 
-class First_Fragment_Profile : Fragment() {
+
+class FirstFragmentProfile : Fragment() {
 
     private lateinit var comu:Comunicator
     val imageofUser = MainActivity.currentUser
@@ -133,15 +130,8 @@ class First_Fragment_Profile : Fragment() {
 
     }
 
-    private fun CancelSaving() {
 
-    }
-
-    private fun SAveDataToFireBase() {
-            user_Text.isEnabled = true
-        Cancel_btn.isVisible = false
-    }
-
+    //Function that CAncel the saving and reShow default data
     private fun GEtUSerInfoFresh(){
         user_Text.text =  MainActivity.currentUser?.username?.toEditable()
         Phone_text.text = MainActivity.currentUser?.phone?.toEditable()

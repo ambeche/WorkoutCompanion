@@ -11,6 +11,7 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.latest_message_row.view.*
 
+//Class takes care of populating the Latest messages rows with Last  messages sent or received to user
 class finalMessageRow(val chatMessage: ChatMessage): Item<ViewHolder>() {
 
     var chatPartnerUser: User? = null

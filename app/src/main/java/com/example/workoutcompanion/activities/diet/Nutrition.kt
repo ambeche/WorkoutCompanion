@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.workoutcompanion.BottomNavListener
 import com.example.workoutcompanion.R
-import com.example.workoutcompanion.activities.home.MainActivity
 import com.example.workoutcompanion.model.APIcalls
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nutrition_main_page.*
 import kotlinx.android.synthetic.main.nutrition_main_page.bottom_navigation
 
@@ -41,10 +39,11 @@ class Nutrition : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    //Function that handles the Click on  Cards
     override fun onClick(p0: View?) {
         when(p0){
 
-            btn_Keto  ->      {URL_To_Call = APIcalls.Diet_endPoint + "&diet=Ketogenic&number=1"
+            btn_Keto  ->      {URL_To_Call = APIcalls.Diet_endPoint + "&diet=Ketogenic&number=10"
                                 val intent = Intent(this, ResultOfDiet1::class.java).apply {
                                     putExtra("DietFilter", URL_To_Call)
                                     putExtra("DietType","Ketogenic")

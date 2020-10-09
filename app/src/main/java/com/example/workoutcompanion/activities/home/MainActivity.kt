@@ -95,9 +95,14 @@ class MainActivity : AppCompatActivity(), OnLoadFragment {
                 requestPermissions(arrayOf(Manifest.permission.ACTIVITY_RECOGNITION), 2)
             }
         }
+
+        //Fetches the current log user
         fetchCurrentUser()
 
+
+        //Checks if the user is log in or not
         verifyuserIsLogrdIn()
+
 
         // set bottom navigation bar
         bottom_navigation.apply {

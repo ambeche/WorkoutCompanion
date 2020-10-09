@@ -13,12 +13,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:text="This is my message that will wrap into multiple lines and keep on going"
+        android:text="@string/this_is_my_message_that_will_wrap_into_multiple_lines_and_keep_on_going"
         android:maxWidth="240dp"
         android:background="@drawable/rounded_fromchat"
         android:padding="16dp"
         app:layout_constraintStart_toEndOf="@+id/imageview_chat_from_row"
-        app:layout_constraintTop_toTopOf="@+id/imageview_chat_from_row" />
+        app:layout_constraintTop_toTopOf="@+id/imageview_chat_from_row"
+        android:contentDescription="@string/message_from_other_user"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageview_chat_from_row"
@@ -30,6 +31,7 @@
         app:civ_border_width="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:srcCompat="@android:drawable/btn_star_big_on"
+        android:contentDescription="@string/the_other_user_s_profile_image"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
