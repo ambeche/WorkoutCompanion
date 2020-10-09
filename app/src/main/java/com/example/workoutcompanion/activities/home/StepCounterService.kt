@@ -98,6 +98,7 @@ class StepCounterService : Service(), SensorEventListener {
                 action = STEP_COUNT_UPDATE
                 putExtra(STEPS, currentSteps)
                 putExtra(DISTANCE_METER, calculateDistanceFromSteps())
+                putExtra("isRunning", true)
             })
         }
         if (event.sensor == linearAccelerometer ) {

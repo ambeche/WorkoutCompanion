@@ -96,7 +96,6 @@
     <string name="stop">Stops </string>
     <string name="start">Start</string>
     <string name="content_description_Start_walk">starts the step counter service</string>
-    <string name="cancel">Cancel</string>
     <string name="ok">connect</string>
     <string name="heart_rate">Heart Rate</string>
     <string name="content_description_hrt">connect your deve to your external heart rate device to monitor your heart rate</string>
@@ -112,6 +111,8 @@
 
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="counter_started_already">Walking  Activity Started Already!</string>
+    <string name="counter_stoped">Saving you Data...  counter stopped!</string>
 
 
 </resources>

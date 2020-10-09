@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity(), OnLoadFragment {
     private lateinit var appViewModel: WorkoutCompanionViewModel
     private lateinit var sharedPref: SharedPreferences
     private val stepService = StepCounterService()
+    private var isRunning = false
 
     companion object {
         var currentUser: User? = null
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity(), OnLoadFragment {
     // receives steps broadcast from StepCounter service
     private val stepsReceiver: StepsReceiver = object : StepsReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
+            isRunning =  intent.getBooleanExtra("isRunning", true)
             val steps = intent.getIntExtra(STEPS, 0).toString()
             val stepsFromPref = sharedPref.getFloat(stepService.todayDate, 0f)
             tvSteps.text = stepsFromPref.toInt().toString()
@@ -152,16 +154,22 @@ class MainActivity : AppCompatActivity(), OnLoadFragment {
     }
     // foreground or background service started based on the SDK version
     private fun startService (context: Context) {
-        val startIntent = Intent(context, StepCounterService::class.java)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)  {
-            context.startForegroundService(startIntent)
-        }else context.startService(startIntent)
+       if (!isRunning) {
+           val startIntent = Intent(context, StepCounterService::class.java)
+           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)  {
+               context.startForegroundService(startIntent)
+           }else context.startService(startIntent)
 
-        AppHelperFunctions().toast(this, getString(R.string.counter_started))
+           AppHelperFunctions().toast(this, getString(R.string.counter_started))
+       }else AppHelperFunctions().toast(this, getString(R.string.counter_started_already))
     }
 
     private fun stopService(context: Context) {
-        context.stopService(Intent(context, StepCounterService::class.java))
+        if (isRunning){
+            context.stopService(Intent(context, StepCounterService::class.java))
+            AppHelperFunctions().toast(this, getString(R.string.counter_stoped))
+            isRunning = false
+        }
     }
 
     private fun fetchCurrentUser() {
