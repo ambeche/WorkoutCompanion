@@ -49,7 +49,7 @@
 * **Web Service**
      * web API For fetching diets plans
      * Firebase Authentication
-* **HardWar - Camera**
+* **Hardware - Camera**
 * **Audio - Music Player**
 * ### Architectural Designs
      * ViewModel & LiveData
