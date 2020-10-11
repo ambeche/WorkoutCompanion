@@ -1,4 +1,7 @@
 package com.example.workoutcompanion.model
+/*
+* Central repository for app data
+*/
 
 import androidx.lifecycle.LiveData
 import com.example.workoutcompanion.model.roomdb.*

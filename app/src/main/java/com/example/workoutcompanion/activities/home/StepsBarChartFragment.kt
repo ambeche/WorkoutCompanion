@@ -1,4 +1,7 @@
 package com.example.workoutcompanion.activities.home
+/*
+* Daily step counts is visualised as a bar chart using MPAndroidChart library and LiveData
+*/
 
 import android.graphics.Color
 import android.graphics.Color.rgb
@@ -44,6 +47,7 @@ class StepsBarChartFragment : Fragment() {
 
         // sets and draw bar chart
         appViewModel.userSteps.observe(viewLifecycleOwner) { steps ->
+            // sets UI as observer to liveData
             val barEntries = ArrayList<BarEntry>()
             val labels = ArrayList<String>()
 

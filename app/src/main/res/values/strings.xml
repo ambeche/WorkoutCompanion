@@ -197,6 +197,9 @@
     <string name="username1">Username</string>
     <string name="username_text">Username text</string>
     <string name="image_of_the_user">image of the user</string>
+    <string name="tag_scan">start scan</string>
+    <string name="no_locaton">No fine location access</string>
+    <string name="set_weight">Weight not Set; Go to profile and set  your weight to see calories!</string>
 
 
 </resources>

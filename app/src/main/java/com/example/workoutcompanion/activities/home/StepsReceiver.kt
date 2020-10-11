@@ -1,4 +1,8 @@
 package com.example.workoutcompanion.activities.home
+/*
+* Receiver is registered in the MainActivity
+* used by the StepCounterService for updating the UI
+*/
 
 import android.content.BroadcastReceiver
 import android.content.Context

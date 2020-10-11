@@ -1,4 +1,9 @@
 package com.example.workoutcompanion.activities.home
+/*
+* Home screen
+* Request system permissions
+* initialize parameters
+*/
 
 import android.Manifest
 import android.content.*
@@ -42,12 +47,13 @@ class MainActivity : AppCompatActivity(), OnLoadFragment {
 
     companion object {
         var currentUser: User? = null
+        const val IS_RUNNING = "isRunning"
     }
 
     // receives steps broadcast from StepCounter service
     private val stepsReceiver: StepsReceiver = object : StepsReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            isRunning =  intent.getBooleanExtra("isRunning", true)
+            isRunning =  intent.getBooleanExtra(IS_RUNNING, true)
             val steps = intent.getIntExtra(STEPS, 0).toString()
             val stepsFromPref = sharedPref.getFloat(stepService.todayDate, 0f)
             tvSteps.text = stepsFromPref.toInt().toString()
@@ -68,19 +74,15 @@ class MainActivity : AppCompatActivity(), OnLoadFragment {
             tvCalories.text = getString(R.string.calories_cal, calories.toString())
 
             // persists the day's count to db and stops counter service
-            val owner = "tamanji.ambe@gmail.com"
-            val stepsToDB = StepCounts (stepService.todayDate, owner,
-                stepsFromPref, calories)
-            appViewModel.addStepsToDb(StepCounts("Sep 26, 2020", owner, 500f, 300f))
-            appViewModel.addStepsToDb(StepCounts("Sep 27, 2020", owner, 1000f, 700f))
-            appViewModel.addStepsToDb(StepCounts("Sep 29, 2020", owner, 2000f, 1200f))
-            appViewModel.addStepsToDb(StepCounts("Sep 30, 2020", owner, 1500f, 800f))
-            appViewModel.addStepsToDb(StepCounts("Oct 1, 2020", owner, 800f, 400f))
-            appViewModel.addStepsToDb(StepCounts("Oct 2, 2020", owner, 3000f, 1400f))
-            appViewModel.addStepsToDb(StepCounts("Oct 3, 2020", owner, 3500f, 1600f))
-            appViewModel.addStepsToDb(StepCounts("Oct 4, 2020", owner, 1000f, 800f))
+            if (currentUser !== null) {
+                val owner = currentUser!!.email
+                val stepsToDB = StepCounts (stepService.todayDate, owner,
+                    stepsFromPref, calories)
 
-            appViewModel.addStepsToDb(stepsToDB)
+                // persists step counts and calories to room DB
+                appViewModel.addStepsToDb(stepsToDB)
+            }
+
         }
     }
 
@@ -98,7 +100,6 @@ class MainActivity : AppCompatActivity(), OnLoadFragment {
 
         //Fetches the current log user
         fetchCurrentUser()
-
 
         //Checks if the user is log in or not
         verifyuserIsLogrdIn()
@@ -135,10 +136,6 @@ class MainActivity : AppCompatActivity(), OnLoadFragment {
             // verify and loads step counts from preferences
                 text = sharedPref.getFloat(stepService.todayDate, 0f).toInt().toString()
             setOnClickListener(OnclickListener())
-            setOnLongClickListener {
-                stopService(this@MainActivity)
-                true
-            }
         }
         // loads values from shared preference when steps service is not started
         updateCountInfo(tvDistance, stepService.dateForDistance, R.string.distance_km)
@@ -159,6 +156,7 @@ class MainActivity : AppCompatActivity(), OnLoadFragment {
     }
     // foreground or background service started based on the SDK version
     private fun startService (context: Context) {
+
        if (!isRunning) {
            val startIntent = Intent(context, StepCounterService::class.java)
            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)  {
@@ -185,12 +183,18 @@ class MainActivity : AppCompatActivity(), OnLoadFragment {
             override fun onDataChange(p0: DataSnapshot) {
                 currentUser = p0.getValue(User::class.java)
                 Log.d("LatestMessages", "Current user ${currentUser?.username}")
+
             }
 
             override fun onCancelled(p0: DatabaseError) {
 
             }
         })
+        // saves user's weight in shard pref for calories calculation
+        if (currentUser !== null && currentUser?.weight !== "") {
+            val userWeight = currentUser!!.weight
+            sharedPref.edit().putString(StepCounterService.WEIGHT, userWeight).apply()
+        }
     }
 
     private fun verifyuserIsLogrdIn() {
@@ -234,8 +238,12 @@ class MainActivity : AppCompatActivity(), OnLoadFragment {
     private inner class  OnclickListener : View.OnClickListener {
         override fun onClick(viewId: View?) {
             when (viewId?.id) {
-                R.id.tvCalories -> {loadFragment(
-                    CaloriesPieChartFragment.newInstance(), R.string.pieChart)
+                R.id.tvCalories -> {
+                    if (currentUser == null || currentUser?.weight == "") {
+                        AppHelperFunctions().toast(this@MainActivity,
+                            getString(R.string.set_weight))
+                    } else loadFragment(
+                        CaloriesPieChartFragment.newInstance(), R.string.pieChart)
                 }
 
                 R.id.tvSteps -> loadFragment(

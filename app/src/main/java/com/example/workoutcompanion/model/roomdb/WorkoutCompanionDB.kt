@@ -1,4 +1,7 @@
 package com.example.workoutcompanion.model.roomdb
+/*
+* Room DB with 3 tables; step counts, user and heart rate
+*/
 
 import android.content.Context
 import androidx.room.Database

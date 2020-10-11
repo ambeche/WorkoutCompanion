@@ -1,9 +1,10 @@
 package com.example.workoutcompanion
-
+/*
+* bottom navigation listener
+*/
 import android.content.Context
 import android.content.Intent
 import android.view.MenuItem
-import com.example.workoutcompanion.activities.chat.ChatActivity
 import com.example.workoutcompanion.activities.chat.LatestMessageActivity
 import com.example.workoutcompanion.activities.diet.Nutrition
 import com.example.workoutcompanion.activities.home.MainActivity

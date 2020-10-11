@@ -2,7 +2,6 @@ package com.example.workoutcompanion.model.roomdb
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 @Entity(tableName = "steps")
 data class StepCounts (

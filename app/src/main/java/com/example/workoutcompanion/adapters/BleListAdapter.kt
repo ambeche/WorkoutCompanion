@@ -1,4 +1,7 @@
 package com.example.workoutcompanion.adapters
+/*
+* Adapter for populating a material pop window with BLE scanned results
+*/
 
 import android.graphics.Color
 import com.example.workoutcompanion.R

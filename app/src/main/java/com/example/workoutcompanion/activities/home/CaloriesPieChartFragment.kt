@@ -1,4 +1,7 @@
 package com.example.workoutcompanion.activities.home
+/*
+* Daily calories burned are visualized in a pie chart using MPAndroidChart library
+*/
 
 import android.graphics.Color
 import android.os.Bundle
@@ -18,7 +21,6 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.android.synthetic.main.fragment_calories_pie_chart.view.*
 import kotlinx.android.synthetic.main.fragment_steps_bar_chart.view.*
 import java.text.DateFormat
-
 
 class CaloriesPieChartFragment : Fragment() {
     private lateinit var appViewModel: WorkoutCompanionViewModel

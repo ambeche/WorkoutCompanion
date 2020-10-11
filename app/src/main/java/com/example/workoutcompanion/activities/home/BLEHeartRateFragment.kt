@@ -1,4 +1,13 @@
 package com.example.workoutcompanion.activities.home
+/*
+* BLE Scanner is set to filter just BLE HEART_RATE_SERVICE
+* Scanner runs in android Bluetooth thread and scan results are received through the ScanCallback
+* that is implemented
+* The gatt connector and characteristics reader are implemented in BleWrapper class that runs in its
+* own thread separate from the Bluetooth Thread (BleWrapper is Authored by Jarkko Vuori)
+* The heart rate in beats per minute is saved in room,  queried as liveData and visualized with the
+* use of MPAndroidChart
+*/
 
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
@@ -35,7 +44,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_b_l_e_heart_rate.*
 import java.util.*
 
-
 class BLEHeartRateFragment : Fragment(), BleWrapper.BleCallback {
     private lateinit var bleAdapter: BluetoothAdapter
     private var bleScanning = false
@@ -47,14 +55,6 @@ class BLEHeartRateFragment : Fragment(), BleWrapper.BleCallback {
     private val hrtData = ArrayList<Int>()
     private lateinit var activityListener: OnLoadFragment
     private lateinit var appViewModel: WorkoutCompanionViewModel
-
-    companion object {
-        const val SCAN_PERIOD: Long = 3000
-        const val REQUEST_CODE_ENABLE = 0
-        const val REQUEST_CODE_FINE_LOCATION = 1
-
-        fun newInstance() = BLEHeartRateFragment()
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -70,7 +70,6 @@ class BLEHeartRateFragment : Fragment(), BleWrapper.BleCallback {
         bleAdapter = bltManager.adapter
         listAdapter = BleListAdapter(context)
         checkPermissionAndBleStatus()
-
     }
 
     override fun onCreateView(
@@ -84,6 +83,7 @@ class BLEHeartRateFragment : Fragment(), BleWrapper.BleCallback {
         )
         startBleScan()
         context?.let {
+            // populates pop window with a list of scanned BLE results
             MaterialAlertDialogBuilder(it)
                 .setTitle(resources.getString(R.string.sanned))
                 .setAdapter(listAdapter) { dialog, which ->
@@ -93,9 +93,10 @@ class BLEHeartRateFragment : Fragment(), BleWrapper.BleCallback {
         }
 
         appViewModel.heartRate.observe(viewLifecycleOwner, {
+             // UI set to observe live data; heart rate from room
              val lineEntries = ArrayList<Entry>()
-             it.forEach {
-                 it.bpm?.let { it1 -> Entry((it.hrt).toFloat(), it1) }?.let { it2 ->
+             it.forEach {hrt ->
+                 hrt.bpm?.let { it1 -> Entry((hrt.hrt).toFloat(), it1) }?.let { it2 ->
                      lineEntries.add(
                          it2
                      )
@@ -127,10 +128,16 @@ class BLEHeartRateFragment : Fragment(), BleWrapper.BleCallback {
         return fragLayout
     }
 
+    override fun onStop() {
+        super.onStop()
+        // cleans the heart rate table
+        appViewModel.deleteHrt()
+    }
+
     private fun checkPermissionAndBleStatus(): Boolean {
         if ( activity?.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) !=
             PackageManager.PERMISSION_GRANTED) {
-            Log.d("DBG", "No fine location access")
+            Log.d("DBG", getString(R.string.no_locaton))
             requestPermissions(
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 REQUEST_CODE_FINE_LOCATION
@@ -144,17 +151,19 @@ class BLEHeartRateFragment : Fragment(), BleWrapper.BleCallback {
     }
 
     private fun startBleScan() {
-        Log.d("DBG", "Scan start")
+        // scans for BLE devices
+        Log.d("DBG", getString(R.string.tag_scan))
         bLeScanner = bleAdapter.bluetoothLeScanner
         val settings = ScanSettings.Builder()
             .setScanMode(ScanSettings.SCAN_MODE_LOW_POWER)
             .build()
-        val hrtUUID = convertToUUID(0x180D)
+        val hrtUUID = converttoUUID(0x180D)
         val hrtUUIDs = arrayOf<UUID>(hrtUUID)
 
         val filters: MutableList<ScanFilter>?
 
         filters = ArrayList()
+        // filter is defined to only scan for BLE HEART RATE SERVICE by UUID; 0x1800
         for (bleHrt in hrtUUIDs) {
             val filter = ScanFilter.Builder()
                 .setServiceUuid(ParcelUuid(bleHrt))
@@ -177,6 +186,7 @@ class BLEHeartRateFragment : Fragment(), BleWrapper.BleCallback {
     }
 
     private fun connectToBleHrt( pos: Int) {
+        // connects to a chosen BLe heart rate device on the scanned result list
         bleWrapper = context?.let { BleWrapper(it, scanResult[pos].device.address) }!!
         bleWrapper.also {
             it.addListener(this@BLEHeartRateFragment)
@@ -186,6 +196,7 @@ class BLEHeartRateFragment : Fragment(), BleWrapper.BleCallback {
     }
 
     inner class BleScanCallback  : ScanCallback() {
+        // callback methods for receiving scan results from the bluetooth service
         override fun onScanResult(callbackType: Int, result: ScanResult) {
             setBleResults(result)
             Log.d("result1", result.device.address)
@@ -209,6 +220,7 @@ class BLEHeartRateFragment : Fragment(), BleWrapper.BleCallback {
     }
 
     override fun onDeviceReady(gatt: BluetoothGatt) {
+        // called when connection has been established between BLE devices
         val hrtUUID = bleWrapper.HEART_RATE_SERVICE_UUID
         for (service in gatt.services) {
             Log.d("services", "${service.uuid}")
@@ -228,31 +240,33 @@ class BLEHeartRateFragment : Fragment(), BleWrapper.BleCallback {
     }
 
     override fun onNotify(characteristic: BluetoothGattCharacteristic) {
+        // called to update the ui of data read from the external BLE device
         val format = BluetoothGattCharacteristic.FORMAT_UINT16
         val bpm = characteristic.getIntValue(format, 1)
         val hrt = "$bpm bpm"
         tvHrt?.text = hrt
-
+        // persisting heart rate to room
         appViewModel.addHearRate(HeartRate(0, bpm.toFloat()))
         hrtData.add(bpm)
-        //Log.d("hrt_values", lineDataSet.toString())
         Log.d("value", hrt)
-    }
-
-    private fun convertToUUID(i: Int): UUID {
-        val MSB = 0x0000000000001000L
-        val LSB = -0x7fffff7fa064cb05L
-        val value = (i and -0x1).toLong()
-        return UUID(MSB or (value shl 32), LSB)
     }
 
     private fun toast(text: String) {
         Toast.makeText(
             activity, text, Toast.LENGTH_SHORT).show()
     }
+    fun converttoUUID(i: Int): UUID {
+        val MSB = 0x0000000000001000L
+        val LSB = -0x7fffff7fa064cb05L
+        val value = (i and -0x1).toLong()
+        return UUID(MSB or (value shl 32), LSB)
+    }
 
-    override fun onStop() {
-        super.onStop()
-        appViewModel.deleteHrt()
+    companion object {
+        const val SCAN_PERIOD: Long = 3000
+        const val REQUEST_CODE_ENABLE = 0
+        const val REQUEST_CODE_FINE_LOCATION = 1
+
+        fun newInstance() = BLEHeartRateFragment()
     }
 }

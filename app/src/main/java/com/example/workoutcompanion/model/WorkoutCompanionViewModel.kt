@@ -1,5 +1,7 @@
 package com.example.workoutcompanion.model
-
+/*
+* Data holder with initialized liveData
+*/
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData

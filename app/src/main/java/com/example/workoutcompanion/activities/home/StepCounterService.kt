@@ -1,4 +1,10 @@
 package com.example.workoutcompanion.activities.home
+/*
+* A Foreground Service for step counts and linear acceleration recordings
+* Distance covered in km is calculated from the number of steps counted
+* UI is updated by the service through a BroadcastReceiver
+*/
+
 
 import android.app.*
 import android.content.Context
@@ -41,21 +47,9 @@ class StepCounterService : Service(), SensorEventListener {
     private lateinit var sharedPref: SharedPreferences
     private lateinit var mHandler: Handler
 
-    companion object{
-        const val PREF = "com.example.workoutcompanion.activities.STEP_COUNTER"
-        const val PREVIOUS_STEPS = "com.example.workoutcompanion.activities.PREVIOUS_STEPS"
-        const val CHANNEL_ID = "com.example.workoutcompanion.activities.STEP_COUNTER_SERVICE"
-        const val SERVICE_ID = 1
-        const val STEP_COUNT_UPDATE = "com.example.workoutcompanion.activities.ACTION_STEPS"
-        const val STEPS = "com.example.workoutcompanion.activities.MESSAGE_STEPS"
-        const val DISTANCE_METER = "com.example.workoutcompanion.activities.DISTANCE_METER"
-        const val WEIGHT = 69
-        const val MET = 3.5
-        const val INTERVAL = 60000L
-    }
-
     override fun onCreate() {
         super.onCreate()
+        // initialization of system services
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sCounter = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         accelerometer = sensorManager?.getDefaultSensor((Sensor.TYPE_ACCELEROMETER))
@@ -68,6 +62,7 @@ class StepCounterService : Service(), SensorEventListener {
         createNotificationChannel()
         sharedPref = getSharedPreferences(PREF, Context.MODE_PRIVATE)
 
+        // registration of sensor types
         if (packageManager.hasSystemFeature(PackageManager.FEATURE_SENSOR_STEP_COUNTER))  {
             sensorManager?.registerListener(this, sCounter, SensorManager.SENSOR_DELAY_NORMAL)
             sensorManager?.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL)
@@ -98,9 +93,10 @@ class StepCounterService : Service(), SensorEventListener {
                 action = STEP_COUNT_UPDATE
                 putExtra(STEPS, currentSteps)
                 putExtra(DISTANCE_METER, calculateDistanceFromSteps())
-                putExtra("isRunning", true)
+                putExtra(MainActivity.IS_RUNNING, true)
             })
         }
+        // records walking linear walking acceleration
         if (event.sensor == linearAccelerometer ) {
             if (isNotCalibrated){
                 calibrateLinearAcc(event.values)
@@ -118,6 +114,7 @@ class StepCounterService : Service(), SensorEventListener {
 
     override fun onDestroy() {
         super.onDestroy()
+        // unregister sensors releasing resources
         try {
             sCounter.also { sensorManager?.unregisterListener(this ) }
             accelerometer.also { sensorManager?.unregisterListener(this) }
@@ -183,10 +180,15 @@ class StepCounterService : Service(), SensorEventListener {
         // calculates kcal burned after every 1 mins of moderate walking , MET = 3.5
         mHandler.postDelayed(
             {
-                calories += ((((MET * WEIGHT)/60)  ) * 10.0 ).roundToInt() / 10.0
-                sharedPref.edit().putFloat(dateForCalories, calories.toFloat()).apply()
+                val fromPref = sharedPref.getString(WEIGHT, "0")
+                val usersWeight = if (fromPref !== "") fromPref?.toInt() else 0
+                if (usersWeight !== null) {
+                    calories += ((((MET * usersWeight)/60)  ) * 10.0 ).roundToInt() / 10.0
+                    sharedPref.edit().putFloat(dateForCalories, calories.toFloat()).apply()
+                }
             }, INTERVAL
         )
+
         Log.d("kcal", calories.toString())
     }
 
@@ -216,7 +218,7 @@ class StepCounterService : Service(), SensorEventListener {
         Log.d("magnitude",  magnitudeAcc.toString())
 
         mHandler.postDelayed(
-            {
+            {   // handler ensures a 10 seconds interval between records
                 sharedPref.edit().putString(dateForAcc, formatAcc()).apply()
 
                 Log.d("acc_Delayed", "$xLinearAcc  $yLinearAcc  $zLinearAcc")
@@ -244,5 +246,18 @@ class StepCounterService : Service(), SensorEventListener {
     private fun toast(text: String) {
         Toast.makeText(
             this, text, Toast.LENGTH_SHORT).show()
+    }
+
+    companion object{
+        const val PREF = "com.example.workoutcompanion.activities.STEP_COUNTER"
+        const val PREVIOUS_STEPS = "com.example.workoutcompanion.activities.PREVIOUS_STEPS"
+        const val CHANNEL_ID = "com.example.workoutcompanion.activities.STEP_COUNTER_SERVICE"
+        const val SERVICE_ID = 1
+        const val STEP_COUNT_UPDATE = "com.example.workoutcompanion.activities.ACTION_STEPS"
+        const val STEPS = "com.example.workoutcompanion.activities.MESSAGE_STEPS"
+        const val DISTANCE_METER = "com.example.workoutcompanion.activities.DISTANCE_METER"
+        const val MET = 3.5 // metabolic equivalent for moderate walking on a flat surface
+        const val WEIGHT = "com.example.workoutcompanion.activities.USER_WEIGHT"
+        const val INTERVAL = 60000L
     }
 }
