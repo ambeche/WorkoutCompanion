@@ -1,5 +1,5 @@
 # Workout Companion App
-        Created by Tamanji Che & Zakaria Zaim
+        Created by Tamanji Che & Zakaria Ziouziou
 ## OverView
 * **This app provides users with tools for aiding and encouraging their physical activities, staying fit and healthy.**
 * ### [Demo Video](https://youtu.be/arGJ6GO-GS0)
